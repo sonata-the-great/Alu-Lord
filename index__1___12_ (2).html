@@ -1,0 +1,4728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#F2F2F7">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Alu Lord</title>
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <style>
+:root{
+--bg:#000000;
+--card:rgba(28,28,30,0.72);
+--card2:rgba(44,44,46,0.65);
+--border:rgba(255,255,255,0.12);
+--text:#ffffff;
+--sub:rgba(235,235,245,0.6);
+--input:rgba(120,120,128,0.24);
+--accent:#0A84FF;
+--accentText:#ffffff;
+--danger:#FF453A;
+--btn:rgba(116,116,128,0.24);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(0,0,0,0.75);
+--topbar-bg:rgba(20,20,20,0.65);
+--option-bg:#2c2c2e;
+--option-text:#ffffff;
+--divider-bg:rgba(255,255,255,0.05);
+--accent-glow:rgba(0,122,255,0.3);
+--glass-fill:rgba(10,132,255,0.45);
+--glass-text:#ffffff;
+--danger-bg:rgba(255,69,58,0.15);
+color-scheme:dark;
+}
+[data-theme="light"]{
+--bg:#F2F2F7;
+--card:rgba(255,255,255,0.8);
+--card2:rgba(255,255,255,0.95);
+--border:rgba(60,60,67,0.12);
+--text:#000000;
+--sub:rgba(60,60,67,0.6);
+--input:rgba(118,118,128,0.12);
+--accent:#007AFF;
+--accentText:#ffffff;
+--danger:#FF3B30;
+--btn:rgba(116,116,128,0.12);
+--shadow:0 10px 25px rgba(0,0,0,0.06);
+--sticky-bg:rgba(242,242,247,0.85);
+--topbar-bg:rgba(249,249,249,0.78);
+--option-bg:#ffffff;
+--option-text:#000000;
+--divider-bg:rgba(255,255,255,0.05);
+--accent-glow:rgba(0,122,255,0.3);
+--glass-fill:rgba(10,132,255,0.45);
+--glass-text:#ffffff;
+--danger-bg:rgba(255,69,58,0.15);
+color-scheme:light;
+}
+
+/* ---- Extra themes (generated; each defines the full variable set) ---- */
+[data-theme="white"]{
+color-scheme:light;
+--bg:#FFFFFF;
+--card:rgba(244,244,245,0.85);
+--card2:rgba(244,244,245,0.97);
+--border:rgba(17,17,17,0.13);
+--text:#111111;
+--sub:rgba(17,17,17,0.62);
+--input:rgba(17,17,17,0.07);
+--accent:#111111;
+--accentText:#FFFFFF;
+--danger:#CC0014;
+--btn:rgba(17,17,17,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(255,255,255,0.85);
+--topbar-bg:rgba(255,255,255,0.78);
+--option-bg:#F4F4F5;
+--option-text:#111111;
+--divider-bg:rgba(17,17,17,0.06);
+--accent-glow:rgba(17,17,17,0.3);
+--glass-fill:rgba(17,17,17,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(204,0,20,0.16);
+}
+[data-theme="mono-light"]{
+color-scheme:light;
+--bg:#E9E9EB;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(26,26,26,0.13);
+--text:#1A1A1A;
+--sub:rgba(26,26,26,0.62);
+--input:rgba(26,26,26,0.07);
+--accent:#444444;
+--accentText:#FFFFFF;
+--danger:#CC0014;
+--btn:rgba(26,26,26,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(233,233,235,0.85);
+--topbar-bg:rgba(233,233,235,0.78);
+--option-bg:#FFFFFF;
+--option-text:#1A1A1A;
+--divider-bg:rgba(26,26,26,0.06);
+--accent-glow:rgba(68,68,68,0.3);
+--glass-fill:rgba(68,68,68,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(204,0,20,0.16);
+}
+[data-theme="mono-dark"]{
+color-scheme:dark;
+--bg:#0D0D0D;
+--card:rgba(28,28,28,0.72);
+--card2:rgba(46,46,46,0.95);
+--border:rgba(242,242,242,0.14);
+--text:#F2F2F2;
+--sub:rgba(242,242,242,0.62);
+--input:rgba(242,242,242,0.12);
+--accent:#D0D0D0;
+--accentText:#000000;
+--danger:#FF685F;
+--btn:rgba(242,242,242,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(13,13,13,0.85);
+--topbar-bg:rgba(13,13,13,0.78);
+--option-bg:#2E2E2E;
+--option-text:#F2F2F2;
+--divider-bg:rgba(242,242,242,0.06);
+--accent-glow:rgba(208,208,208,0.3);
+--glass-fill:rgba(208,208,208,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,104,95,0.16);
+}
+[data-theme="oled"]{
+color-scheme:dark;
+--bg:#000000;
+--card:rgba(17,17,17,0.72);
+--card2:rgba(36,36,36,0.95);
+--border:rgba(255,255,255,0.14);
+--text:#FFFFFF;
+--sub:rgba(255,255,255,0.62);
+--input:rgba(255,255,255,0.12);
+--accent:#64D2FF;
+--accentText:#000000;
+--danger:#FF574D;
+--btn:rgba(255,255,255,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(0,0,0,0.85);
+--topbar-bg:rgba(0,0,0,0.78);
+--option-bg:#242424;
+--option-text:#FFFFFF;
+--divider-bg:rgba(255,255,255,0.06);
+--accent-glow:rgba(100,210,255,0.3);
+--glass-fill:rgba(100,210,255,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,87,77,0.16);
+}
+[data-theme="slate-light"]{
+color-scheme:light;
+--bg:#EDF0F5;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(30,41,59,0.13);
+--text:#1E293B;
+--sub:rgba(30,41,59,0.68);
+--input:rgba(30,41,59,0.07);
+--accent:#475569;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(30,41,59,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(237,240,245,0.85);
+--topbar-bg:rgba(237,240,245,0.78);
+--option-bg:#FFFFFF;
+--option-text:#1E293B;
+--divider-bg:rgba(30,41,59,0.06);
+--accent-glow:rgba(71,85,105,0.3);
+--glass-fill:rgba(71,85,105,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="slate"]{
+color-scheme:dark;
+--bg:#0F172A;
+--card:rgba(30,41,59,0.72);
+--card2:rgba(48,58,75,0.95);
+--border:rgba(226,232,240,0.14);
+--text:#E2E8F0;
+--sub:rgba(226,232,240,0.62);
+--input:rgba(226,232,240,0.12);
+--accent:#99A8BC;
+--accentText:#000000;
+--danger:#FF7D75;
+--btn:rgba(226,232,240,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(15,23,42,0.85);
+--topbar-bg:rgba(15,23,42,0.78);
+--option-bg:#303A4B;
+--option-text:#E2E8F0;
+--divider-bg:rgba(226,232,240,0.06);
+--accent-glow:rgba(153,168,188,0.3);
+--glass-fill:rgba(153,168,188,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,125,117,0.16);
+}
+[data-theme="graphite"]{
+color-scheme:dark;
+--bg:#17181A;
+--card:rgba(38,40,43,0.72);
+--card2:rgba(55,57,60,0.95);
+--border:rgba(236,237,238,0.14);
+--text:#ECEDEE;
+--sub:rgba(236,237,238,0.62);
+--input:rgba(236,237,238,0.12);
+--accent:#8AB4F8;
+--accentText:#000000;
+--danger:#FF847C;
+--btn:rgba(236,237,238,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(23,24,26,0.85);
+--topbar-bg:rgba(23,24,26,0.78);
+--option-bg:#37393C;
+--option-text:#ECEDEE;
+--divider-bg:rgba(236,237,238,0.06);
+--accent-glow:rgba(138,180,248,0.3);
+--glass-fill:rgba(138,180,248,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,132,124,0.16);
+}
+[data-theme="charcoal"]{
+color-scheme:dark;
+--bg:#121212;
+--card:rgba(35,35,35,0.72);
+--card2:rgba(53,53,53,0.95);
+--border:rgba(234,234,234,0.14);
+--text:#EAEAEA;
+--sub:rgba(234,234,234,0.62);
+--input:rgba(234,234,234,0.12);
+--accent:#FFB74D;
+--accentText:#000000;
+--danger:#FF766E;
+--btn:rgba(234,234,234,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(18,18,18,0.85);
+--topbar-bg:rgba(18,18,18,0.78);
+--option-bg:#353535;
+--option-text:#EAEAEA;
+--divider-bg:rgba(234,234,234,0.06);
+--accent-glow:rgba(255,183,77,0.3);
+--glass-fill:rgba(255,183,77,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,118,110,0.16);
+}
+[data-theme="ocean"]{
+color-scheme:light;
+--bg:#E8F1FF;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(11,36,71,0.13);
+--text:#0B2447;
+--sub:rgba(11,36,71,0.65);
+--input:rgba(11,36,71,0.07);
+--accent:#1A64D1;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(11,36,71,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(232,241,255,0.85);
+--topbar-bg:rgba(232,241,255,0.78);
+--option-bg:#FFFFFF;
+--option-text:#0B2447;
+--divider-bg:rgba(11,36,71,0.06);
+--accent-glow:rgba(26,100,209,0.3);
+--glass-fill:rgba(26,100,209,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="midnight"]{
+color-scheme:dark;
+--bg:#0A1530;
+--card:rgba(20,36,74,0.72);
+--card2:rgba(39,54,88,0.95);
+--border:rgba(230,238,255,0.14);
+--text:#E6EEFF;
+--sub:rgba(230,238,255,0.62);
+--input:rgba(230,238,255,0.12);
+--accent:#6BA5FF;
+--accentText:#000000;
+--danger:#FF7D75;
+--btn:rgba(230,238,255,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(10,21,48,0.85);
+--topbar-bg:rgba(10,21,48,0.78);
+--option-bg:#273658;
+--option-text:#E6EEFF;
+--divider-bg:rgba(230,238,255,0.06);
+--accent-glow:rgba(107,165,255,0.3);
+--glass-fill:rgba(107,165,255,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,125,117,0.16);
+}
+[data-theme="navy"]{
+color-scheme:dark;
+--bg:#0B1B33;
+--card:rgba(19,42,77,0.72);
+--card2:rgba(38,59,91,0.95);
+--border:rgba(234,241,251,0.14);
+--text:#EAF1FB;
+--sub:rgba(234,241,251,0.62);
+--input:rgba(234,241,251,0.12);
+--accent:#68B0F8;
+--accentText:#000000;
+--danger:#FF847C;
+--btn:rgba(234,241,251,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(11,27,51,0.85);
+--topbar-bg:rgba(11,27,51,0.78);
+--option-bg:#263B5B;
+--option-text:#EAF1FB;
+--divider-bg:rgba(234,241,251,0.06);
+--accent-glow:rgba(104,176,248,0.3);
+--glass-fill:rgba(104,176,248,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,132,124,0.16);
+}
+[data-theme="navy-light"]{
+color-scheme:light;
+--bg:#E6EBF4;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(15,35,66,0.13);
+--text:#0F2342;
+--sub:rgba(15,35,66,0.65);
+--input:rgba(15,35,66,0.07);
+--accent:#1E3A8A;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(15,35,66,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(230,235,244,0.85);
+--topbar-bg:rgba(230,235,244,0.78);
+--option-bg:#FFFFFF;
+--option-text:#0F2342;
+--divider-bg:rgba(15,35,66,0.06);
+--accent-glow:rgba(30,58,138,0.3);
+--glass-fill:rgba(30,58,138,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="sky"]{
+color-scheme:light;
+--bg:#E4F5FF;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(12,53,80,0.13);
+--text:#0C3550;
+--sub:rgba(12,53,80,0.68);
+--input:rgba(12,53,80,0.07);
+--accent:#0271AB;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(12,53,80,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(228,245,255,0.85);
+--topbar-bg:rgba(228,245,255,0.78);
+--option-bg:#FFFFFF;
+--option-text:#0C3550;
+--divider-bg:rgba(12,53,80,0.06);
+--accent-glow:rgba(2,113,171,0.3);
+--glass-fill:rgba(2,113,171,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="royal"]{
+color-scheme:dark;
+--bg:#0D1026;
+--card:rgba(26,31,75,0.72);
+--card2:rgba(44,49,89,0.95);
+--border:rgba(232,234,255,0.14);
+--text:#E8EAFF;
+--sub:rgba(232,234,255,0.62);
+--input:rgba(232,234,255,0.12);
+--accent:#8997FF;
+--accentText:#000000;
+--danger:#FF766E;
+--btn:rgba(232,234,255,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(13,16,38,0.85);
+--topbar-bg:rgba(13,16,38,0.78);
+--option-bg:#2C3159;
+--option-text:#E8EAFF;
+--divider-bg:rgba(232,234,255,0.06);
+--accent-glow:rgba(137,151,255,0.3);
+--glass-fill:rgba(137,151,255,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,118,110,0.16);
+}
+[data-theme="green"]{
+color-scheme:light;
+--bg:#E9F6EC;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(17,54,31,0.13);
+--text:#11361F;
+--sub:rgba(17,54,31,0.68);
+--input:rgba(17,54,31,0.07);
+--accent:#1A7A35;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(17,54,31,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(233,246,236,0.85);
+--topbar-bg:rgba(233,246,236,0.78);
+--option-bg:#FFFFFF;
+--option-text:#11361F;
+--divider-bg:rgba(17,54,31,0.06);
+--accent-glow:rgba(26,122,53,0.3);
+--glass-fill:rgba(26,122,53,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="emerald"]{
+color-scheme:dark;
+--bg:#04140E;
+--card:rgba(12,42,31,0.72);
+--card2:rgba(31,59,49,0.95);
+--border:rgba(228,247,238,0.14);
+--text:#E4F7EE;
+--sub:rgba(228,247,238,0.62);
+--input:rgba(228,247,238,0.12);
+--accent:#34D399;
+--accentText:#000000;
+--danger:#FF766E;
+--btn:rgba(228,247,238,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(4,20,14,0.85);
+--topbar-bg:rgba(4,20,14,0.78);
+--option-bg:#1F3B31;
+--option-text:#E4F7EE;
+--divider-bg:rgba(228,247,238,0.06);
+--accent-glow:rgba(52,211,153,0.3);
+--glass-fill:rgba(52,211,153,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,118,110,0.16);
+}
+[data-theme="mint"]{
+color-scheme:light;
+--bg:#E3F8F0;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(15,59,46,0.13);
+--text:#0F3B2E;
+--sub:rgba(15,59,46,0.71);
+--input:rgba(15,59,46,0.07);
+--accent:#0C7B5B;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(15,59,46,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(227,248,240,0.85);
+--topbar-bg:rgba(227,248,240,0.78);
+--option-bg:#FFFFFF;
+--option-text:#0F3B2E;
+--divider-bg:rgba(15,59,46,0.06);
+--accent-glow:rgba(12,123,91,0.3);
+--glass-fill:rgba(12,123,91,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="forest"]{
+color-scheme:dark;
+--bg:#0E1A12;
+--card:rgba(25,41,30,0.72);
+--card2:rgba(43,58,48,0.95);
+--border:rgba(231,240,233,0.14);
+--text:#E7F0E9;
+--sub:rgba(231,240,233,0.62);
+--input:rgba(231,240,233,0.12);
+--accent:#7BC47F;
+--accentText:#000000;
+--danger:#FF7D75;
+--btn:rgba(231,240,233,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(14,26,18,0.85);
+--topbar-bg:rgba(14,26,18,0.78);
+--option-bg:#2B3A30;
+--option-text:#E7F0E9;
+--divider-bg:rgba(231,240,233,0.06);
+--accent-glow:rgba(123,196,127,0.3);
+--glass-fill:rgba(123,196,127,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,125,117,0.16);
+}
+[data-theme="olive"]{
+color-scheme:light;
+--bg:#EFF0E1;
+--card:rgba(250,250,240,0.85);
+--card2:rgba(250,250,240,0.97);
+--border:rgba(45,48,22,0.13);
+--text:#2D3016;
+--sub:rgba(45,48,22,0.68);
+--input:rgba(45,48,22,0.07);
+--accent:#616E1C;
+--accentText:#FFFFFF;
+--danger:#CC0014;
+--btn:rgba(45,48,22,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(239,240,225,0.85);
+--topbar-bg:rgba(239,240,225,0.78);
+--option-bg:#FAFAF0;
+--option-text:#2D3016;
+--divider-bg:rgba(45,48,22,0.06);
+--accent-glow:rgba(97,110,28,0.3);
+--glass-fill:rgba(97,110,28,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(204,0,20,0.16);
+}
+[data-theme="lavender"]{
+color-scheme:light;
+--bg:#EFE9FB;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(42,27,77,0.13);
+--text:#2A1B4D;
+--sub:rgba(42,27,77,0.65);
+--input:rgba(42,27,77,0.07);
+--accent:#7649D0;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(42,27,77,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(239,233,251,0.85);
+--topbar-bg:rgba(239,233,251,0.78);
+--option-bg:#FFFFFF;
+--option-text:#2A1B4D;
+--divider-bg:rgba(42,27,77,0.06);
+--accent-glow:rgba(118,73,208,0.3);
+--glass-fill:rgba(118,73,208,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="violet"]{
+color-scheme:dark;
+--bg:#140B26;
+--card:rgba(35,20,67,0.72);
+--card2:rgba(53,39,82,0.95);
+--border:rgba(239,232,255,0.14);
+--text:#EFE8FF;
+--sub:rgba(239,232,255,0.62);
+--input:rgba(239,232,255,0.12);
+--accent:#A78BFA;
+--accentText:#000000;
+--danger:#FF685F;
+--btn:rgba(239,232,255,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(20,11,38,0.85);
+--topbar-bg:rgba(20,11,38,0.78);
+--option-bg:#352752;
+--option-text:#EFE8FF;
+--divider-bg:rgba(239,232,255,0.06);
+--accent-glow:rgba(167,139,250,0.3);
+--glass-fill:rgba(167,139,250,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,104,95,0.16);
+}
+[data-theme="amethyst"]{
+color-scheme:light;
+--bg:#F4EBFA;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(59,19,85,0.13);
+--text:#3B1355;
+--sub:rgba(59,19,85,0.65);
+--input:rgba(59,19,85,0.07);
+--accent:#9333EA;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(59,19,85,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(244,235,250,0.85);
+--topbar-bg:rgba(244,235,250,0.78);
+--option-bg:#FFFFFF;
+--option-text:#3B1355;
+--divider-bg:rgba(59,19,85,0.06);
+--accent-glow:rgba(147,51,234,0.3);
+--glass-fill:rgba(147,51,234,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="grape"]{
+color-scheme:dark;
+--bg:#1A0A1F;
+--card:rgba(43,18,51,0.72);
+--card2:rgba(60,37,67,0.95);
+--border:rgba(245,232,250,0.14);
+--text:#F5E8FA;
+--sub:rgba(245,232,250,0.62);
+--input:rgba(245,232,250,0.12);
+--accent:#D17BF0;
+--accentText:#000000;
+--danger:#FF685F;
+--btn:rgba(245,232,250,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(26,10,31,0.85);
+--topbar-bg:rgba(26,10,31,0.78);
+--option-bg:#3C2543;
+--option-text:#F5E8FA;
+--divider-bg:rgba(245,232,250,0.06);
+--accent-glow:rgba(209,123,240,0.3);
+--glass-fill:rgba(209,123,240,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,104,95,0.16);
+}
+[data-theme="indigo"]{
+color-scheme:light;
+--bg:#ECEEFF;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(30,27,75,0.13);
+--text:#1E1B4B;
+--sub:rgba(30,27,75,0.65);
+--input:rgba(30,27,75,0.07);
+--accent:#4F46E5;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(30,27,75,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(236,238,255,0.85);
+--topbar-bg:rgba(236,238,255,0.78);
+--option-bg:#FFFFFF;
+--option-text:#1E1B4B;
+--divider-bg:rgba(30,27,75,0.06);
+--accent-glow:rgba(79,70,229,0.3);
+--glass-fill:rgba(79,70,229,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="rose"]{
+color-scheme:light;
+--bg:#FFEEF1;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(74,16,32,0.13);
+--text:#4A1020;
+--sub:rgba(74,16,32,0.65);
+--input:rgba(74,16,32,0.07);
+--accent:#CB1A41;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(74,16,32,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(255,238,241,0.85);
+--topbar-bg:rgba(255,238,241,0.78);
+--option-bg:#FFFFFF;
+--option-text:#4A1020;
+--divider-bg:rgba(74,16,32,0.06);
+--accent-glow:rgba(203,26,65,0.3);
+--glass-fill:rgba(203,26,65,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="pink"]{
+color-scheme:light;
+--bg:#FCE8F4;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(74,18,56,0.13);
+--text:#4A1238;
+--sub:rgba(74,18,56,0.65);
+--input:rgba(74,18,56,0.07);
+--accent:#C6236B;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(74,18,56,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(252,232,244,0.85);
+--topbar-bg:rgba(252,232,244,0.78);
+--option-bg:#FFFFFF;
+--option-text:#4A1238;
+--divider-bg:rgba(74,18,56,0.06);
+--accent-glow:rgba(198,35,107,0.3);
+--glass-fill:rgba(198,35,107,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="raspberry"]{
+color-scheme:dark;
+--bg:#1F0A14;
+--card:rgba(52,18,31,0.72);
+--card2:rgba(68,37,49,0.95);
+--border:rgba(252,232,239,0.14);
+--text:#FCE8EF;
+--sub:rgba(252,232,239,0.62);
+--input:rgba(252,232,239,0.12);
+--accent:#FF6B9A;
+--accentText:#000000;
+--danger:#FF6F67;
+--btn:rgba(252,232,239,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(31,10,20,0.85);
+--topbar-bg:rgba(31,10,20,0.78);
+--option-bg:#442531;
+--option-text:#FCE8EF;
+--divider-bg:rgba(252,232,239,0.06);
+--accent-glow:rgba(255,107,154,0.3);
+--glass-fill:rgba(255,107,154,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,111,103,0.16);
+}
+[data-theme="crimson"]{
+color-scheme:light;
+--bg:#FDECEC;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(69,10,10,0.13);
+--text:#450A0A;
+--sub:rgba(69,10,10,0.62);
+--input:rgba(69,10,10,0.07);
+--accent:#C81E1E;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(69,10,10,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(253,236,236,0.85);
+--topbar-bg:rgba(253,236,236,0.78);
+--option-bg:#FFFFFF;
+--option-text:#450A0A;
+--divider-bg:rgba(69,10,10,0.06);
+--accent-glow:rgba(200,30,30,0.3);
+--glass-fill:rgba(200,30,30,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="ruby"]{
+color-scheme:dark;
+--bg:#1A0808;
+--card:rgba(46,16,16,0.72);
+--card2:rgba(63,35,35,0.95);
+--border:rgba(253,234,234,0.14);
+--text:#FDEAEA;
+--sub:rgba(253,234,234,0.62);
+--input:rgba(253,234,234,0.12);
+--accent:#FF6B6B;
+--accentText:#000000;
+--danger:#FF685F;
+--btn:rgba(253,234,234,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(26,8,8,0.85);
+--topbar-bg:rgba(26,8,8,0.78);
+--option-bg:#3F2323;
+--option-text:#FDEAEA;
+--divider-bg:rgba(253,234,234,0.06);
+--accent-glow:rgba(255,107,107,0.3);
+--glass-fill:rgba(255,107,107,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,104,95,0.16);
+}
+[data-theme="orange"]{
+color-scheme:light;
+--bg:#FFF1E5;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(67,28,5,0.13);
+--text:#431C05;
+--sub:rgba(67,28,5,0.65);
+--input:rgba(67,28,5,0.07);
+--accent:#B14809;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(67,28,5,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(255,241,229,0.85);
+--topbar-bg:rgba(255,241,229,0.78);
+--option-bg:#FFFFFF;
+--option-text:#431C05;
+--divider-bg:rgba(67,28,5,0.06);
+--accent-glow:rgba(177,72,9,0.3);
+--glass-fill:rgba(177,72,9,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="sunset"]{
+color-scheme:dark;
+--bg:#1C0F08;
+--card:rgba(50,26,14,0.72);
+--card2:rgba(66,44,33,0.95);
+--border:rgba(255,237,224,0.14);
+--text:#FFEDE0;
+--sub:rgba(255,237,224,0.62);
+--input:rgba(255,237,224,0.12);
+--accent:#FF8A3D;
+--accentText:#000000;
+--danger:#FF6F67;
+--btn:rgba(255,237,224,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(28,15,8,0.85);
+--topbar-bg:rgba(28,15,8,0.78);
+--option-bg:#422C21;
+--option-text:#FFEDE0;
+--divider-bg:rgba(255,237,224,0.06);
+--accent-glow:rgba(255,138,61,0.3);
+--glass-fill:rgba(255,138,61,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,111,103,0.16);
+}
+[data-theme="amber"]{
+color-scheme:light;
+--bg:#FFF6DC;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(61,42,0,0.13);
+--text:#3D2A00;
+--sub:rgba(61,42,0,0.68);
+--input:rgba(61,42,0,0.07);
+--accent:#A25605;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(61,42,0,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(255,246,220,0.85);
+--topbar-bg:rgba(255,246,220,0.78);
+--option-bg:#FFFFFF;
+--option-text:#3D2A00;
+--divider-bg:rgba(61,42,0,0.06);
+--accent-glow:rgba(162,86,5,0.3);
+--glass-fill:rgba(162,86,5,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="gold"]{
+color-scheme:dark;
+--bg:#1A1405;
+--card:rgba(45,35,8,0.72);
+--card2:rgba(62,53,28,0.95);
+--border:rgba(255,246,214,0.14);
+--text:#FFF6D6;
+--sub:rgba(255,246,214,0.62);
+--input:rgba(255,246,214,0.12);
+--accent:#FBBF24;
+--accentText:#000000;
+--danger:#FF7D75;
+--btn:rgba(255,246,214,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(26,20,5,0.85);
+--topbar-bg:rgba(26,20,5,0.78);
+--option-bg:#3E351C;
+--option-text:#FFF6D6;
+--divider-bg:rgba(255,246,214,0.06);
+--accent-glow:rgba(251,191,36,0.3);
+--glass-fill:rgba(251,191,36,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,125,117,0.16);
+}
+[data-theme="teal"]{
+color-scheme:light;
+--bg:#E3F5F5;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(11,58,60,0.13);
+--text:#0B3A3C;
+--sub:rgba(11,58,60,0.71);
+--input:rgba(11,58,60,0.07);
+--accent:#0D7779;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(11,58,60,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(227,245,245,0.85);
+--topbar-bg:rgba(227,245,245,0.78);
+--option-bg:#FFFFFF;
+--option-text:#0B3A3C;
+--divider-bg:rgba(11,58,60,0.06);
+--accent-glow:rgba(13,119,121,0.3);
+--glass-fill:rgba(13,119,121,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="teal-dark"]{
+color-scheme:dark;
+--bg:#061A1B;
+--card:rgba(14,47,49,0.72);
+--card2:rgba(33,64,65,0.95);
+--border:rgba(225,246,246,0.14);
+--text:#E1F6F6;
+--sub:rgba(225,246,246,0.62);
+--input:rgba(225,246,246,0.12);
+--accent:#2DD4BF;
+--accentText:#000000;
+--danger:#FF847C;
+--btn:rgba(225,246,246,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(6,26,27,0.85);
+--topbar-bg:rgba(6,26,27,0.78);
+--option-bg:#214041;
+--option-text:#E1F6F6;
+--divider-bg:rgba(225,246,246,0.06);
+--accent-glow:rgba(45,212,191,0.3);
+--glass-fill:rgba(45,212,191,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,132,124,0.16);
+}
+[data-theme="cyan"]{
+color-scheme:light;
+--bg:#E2F8FC;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(8,51,68,0.13);
+--text:#083344;
+--sub:rgba(8,51,68,0.68);
+--input:rgba(8,51,68,0.07);
+--accent:#077691;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(8,51,68,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(226,248,252,0.85);
+--topbar-bg:rgba(226,248,252,0.78);
+--option-bg:#FFFFFF;
+--option-text:#083344;
+--divider-bg:rgba(8,51,68,0.06);
+--accent-glow:rgba(7,118,145,0.3);
+--glass-fill:rgba(7,118,145,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="cyan-night"]{
+color-scheme:dark;
+--bg:#04161C;
+--card:rgba(10,43,53,0.72);
+--card2:rgba(30,60,69,0.95);
+--border:rgba(223,247,252,0.14);
+--text:#DFF7FC;
+--sub:rgba(223,247,252,0.62);
+--input:rgba(223,247,252,0.12);
+--accent:#22D3EE;
+--accentText:#000000;
+--danger:#FF7D75;
+--btn:rgba(223,247,252,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(4,22,28,0.85);
+--topbar-bg:rgba(4,22,28,0.78);
+--option-bg:#1E3C45;
+--option-text:#DFF7FC;
+--divider-bg:rgba(223,247,252,0.06);
+--accent-glow:rgba(34,211,238,0.3);
+--glass-fill:rgba(34,211,238,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,125,117,0.16);
+}
+[data-theme="beige"]{
+color-scheme:light;
+--bg:#F3ECE1;
+--card:rgba(251,248,243,0.85);
+--card2:rgba(251,248,243,0.97);
+--border:rgba(58,46,34,0.13);
+--text:#3A2E22;
+--sub:rgba(58,46,34,0.71);
+--input:rgba(58,46,34,0.07);
+--accent:#905829;
+--accentText:#FFFFFF;
+--danger:#CC0014;
+--btn:rgba(58,46,34,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(243,236,225,0.85);
+--topbar-bg:rgba(243,236,225,0.78);
+--option-bg:#FBF8F3;
+--option-text:#3A2E22;
+--divider-bg:rgba(58,46,34,0.06);
+--accent-glow:rgba(144,88,41,0.3);
+--glass-fill:rgba(144,88,41,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(204,0,20,0.16);
+}
+[data-theme="cream"]{
+color-scheme:light;
+--bg:#FFFAEC;
+--card:rgba(255,255,255,0.85);
+--card2:rgba(255,255,255,0.97);
+--border:rgba(59,51,38,0.13);
+--text:#3B3326;
+--sub:rgba(59,51,38,0.68);
+--input:rgba(59,51,38,0.07);
+--accent:#956319;
+--accentText:#FFFFFF;
+--danger:#D70015;
+--btn:rgba(59,51,38,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(255,250,236,0.85);
+--topbar-bg:rgba(255,250,236,0.78);
+--option-bg:#FFFFFF;
+--option-text:#3B3326;
+--divider-bg:rgba(59,51,38,0.06);
+--accent-glow:rgba(149,99,25,0.3);
+--glass-fill:rgba(149,99,25,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(215,0,21,0.16);
+}
+[data-theme="cocoa"]{
+color-scheme:dark;
+--bg:#1E1610;
+--card:rgba(51,38,28,0.72);
+--card2:rgba(67,55,46,0.95);
+--border:rgba(244,232,220,0.14);
+--text:#F4E8DC;
+--sub:rgba(244,232,220,0.62);
+--input:rgba(244,232,220,0.12);
+--accent:#D9A066;
+--accentText:#000000;
+--danger:#FF847C;
+--btn:rgba(244,232,220,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(30,22,16,0.85);
+--topbar-bg:rgba(30,22,16,0.78);
+--option-bg:#43372E;
+--option-text:#F4E8DC;
+--divider-bg:rgba(244,232,220,0.06);
+--accent-glow:rgba(217,160,102,0.3);
+--glass-fill:rgba(217,160,102,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,132,124,0.16);
+}
+[data-theme="coffee"]{
+color-scheme:dark;
+--bg:#17100C;
+--card:rgba(42,30,23,0.72);
+--card2:rgba(59,48,42,0.95);
+--border:rgba(239,227,216,0.14);
+--text:#EFE3D8;
+--sub:rgba(239,227,216,0.62);
+--input:rgba(239,227,216,0.12);
+--accent:#C8956D;
+--accentText:#000000;
+--danger:#FF6F67;
+--btn:rgba(239,227,216,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(23,16,12,0.85);
+--topbar-bg:rgba(23,16,12,0.78);
+--option-bg:#3B302A;
+--option-text:#EFE3D8;
+--divider-bg:rgba(239,227,216,0.06);
+--accent-glow:rgba(200,149,109,0.3);
+--glass-fill:rgba(200,149,109,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,111,103,0.16);
+}
+[data-theme="nord"]{
+color-scheme:dark;
+--bg:#2E3440;
+--card:rgba(59,66,82,0.72);
+--card2:rgba(75,81,96,0.95);
+--border:rgba(236,239,244,0.14);
+--text:#ECEFF4;
+--sub:rgba(236,239,244,0.62);
+--input:rgba(236,239,244,0.12);
+--accent:#A3CEDB;
+--accentText:#000000;
+--danger:#FFB5B1;
+--btn:rgba(236,239,244,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(46,52,64,0.85);
+--topbar-bg:rgba(46,52,64,0.78);
+--option-bg:#4B5160;
+--option-text:#ECEFF4;
+--divider-bg:rgba(236,239,244,0.06);
+--accent-glow:rgba(163,206,219,0.3);
+--glass-fill:rgba(163,206,219,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,181,177,0.16);
+}
+[data-theme="solarized"]{
+color-scheme:light;
+--bg:#FDF6E3;
+--card:rgba(245,239,220,0.85);
+--card2:rgba(245,239,220,0.97);
+--border:rgba(7,54,66,0.13);
+--text:#073642;
+--sub:rgba(7,54,66,0.68);
+--input:rgba(7,54,66,0.07);
+--accent:#1B669A;
+--accentText:#FFFFFF;
+--danger:#CC0014;
+--btn:rgba(7,54,66,0.07);
+--shadow:0 10px 25px rgba(0,0,0,0.07);
+--radius:16px;
+--sticky-bg:rgba(253,246,227,0.85);
+--topbar-bg:rgba(253,246,227,0.78);
+--option-bg:#F5EFDC;
+--option-text:#073642;
+--divider-bg:rgba(7,54,66,0.06);
+--accent-glow:rgba(27,102,154,0.3);
+--glass-fill:rgba(27,102,154,0.9);
+--glass-text:#FFFFFF;
+--danger-bg:rgba(204,0,20,0.16);
+}
+[data-theme="dracula"]{
+color-scheme:dark;
+--bg:#282A36;
+--card:rgba(52,55,70,0.72);
+--card2:rgba(68,71,85,0.95);
+--border:rgba(248,248,242,0.14);
+--text:#F8F8F2;
+--sub:rgba(248,248,242,0.62);
+--input:rgba(248,248,242,0.12);
+--accent:#CEB0FB;
+--accentText:#000000;
+--danger:#FFA49F;
+--btn:rgba(248,248,242,0.12);
+--shadow:0 12px 30px rgba(0,0,0,0.4);
+--radius:16px;
+--sticky-bg:rgba(40,42,54,0.85);
+--topbar-bg:rgba(40,42,54,0.78);
+--option-bg:#444755;
+--option-text:#F8F8F2;
+--divider-bg:rgba(248,248,242,0.06);
+--accent-glow:rgba(206,176,251,0.3);
+--glass-fill:rgba(206,176,251,0.9);
+--glass-text:#000000;
+--danger-bg:rgba(255,164,159,0.16);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+
+body{
+min-height:100vh;
+color:var(--text);
+display:flex;
+justify-content:center;
+padding:0;
+background:var(--bg);
+transition:background 0.3s ease;
+-webkit-font-smoothing:antialiased;
+}
+
+.app-container{
+width:100%;
+max-width:440px;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+background:transparent;
+position:relative;
+padding-bottom:20px;
+}
+
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+height:60px;
+gap:10px;
+position:sticky;
+top:0;
+z-index:30;
+background:var(--topbar-bg);
+border-bottom:0.5px solid var(--border);
+backdrop-filter:blur(20px) saturate(180%);
+-webkit-backdrop-filter:blur(20px) saturate(180%);
+}
+
+.brand-title{
+font-size:17px;
+font-weight:600;
+letter-spacing:-0.4px;
+color:var(--text);
+cursor:pointer;
+user-select:none;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+min-width:0;
+}
+
+.admin-badge {
+  font-size: 10px;
+  background: var(--accent);
+  color: var(--accentText);
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+  display: none;
+}
+
+.top-actions{
+display:flex;
+align-items:center;
+gap:8px;
+flex-shrink:0;
+}
+.unit-select-wrap{position:relative;flex-shrink:0}
+.unit-select-wrap::after{
+content:"▾";
+position:absolute;
+right:9px;
+top:50%;
+transform:translateY(-50%);
+font-size:10px;
+color:var(--accent);
+pointer-events:none;
+}
+.unit-select{
+width:76px;
+height:32px;
+padding:0 22px 0 10px;
+border-radius:16px;
+font-size:12px;
+font-weight:600;
+text-align:left;
+color:var(--accent);
+cursor:pointer;
+}
+.settings-btn{
+flex-shrink:0;
+width:32px;
+height:32px;
+border-radius:50%;
+border:none;
+background:var(--input);
+color:var(--accent);
+font-size:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:600;
+}
+
+.content-area{padding:16px;flex:1}
+
+/* Sticky Back Button Styling */
+.back-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sticky-bg);
+  border: none;
+  border-bottom: 0.5px solid var(--border);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 16px;
+  margin: -16px -16px 14px -16px;
+  position: sticky;
+  top: 60px;
+  z-index: 25;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: opacity 0.15s ease;
+}
+.back-nav-btn:active {
+  opacity: 0.6;
+}
+.back-nav-btn .arrow {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.card{
+background:var(--card);
+border:0.5px solid var(--border);
+border-radius:var(--radius);
+padding:16px;
+margin-bottom:16px;
+box-shadow:var(--shadow);
+backdrop-filter:blur(30px) saturate(190%);
+-webkit-backdrop-filter:blur(30px) saturate(190%);
+}
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+}
+
+.item-label{
+font-size:12px;
+font-weight:600;
+color:var(--sub);
+text-transform:uppercase;
+letter-spacing:-0.1px;
+}
+
+.card-delete-btn{
+width:26px;
+height:26px;
+border-radius:50%;
+border:none;
+background:var(--danger-bg);
+color:var(--danger);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+font-weight:bold;
+}
+
+.grid-3{display:grid;grid-template-columns:1fr 1fr .8fr;gap:10px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+
+.input-wrapper{display:flex;flex-direction:column}
+.input-wrapper label{
+font-size:11px;
+font-weight:500;
+color:var(--sub);
+margin:0 0 6px 2px;
+text-transform:uppercase;
+letter-spacing:0.2px;
+}
+
+input,select{
+width:100%;
+height:40px;
+background:var(--input);
+border:none;
+border-radius:10px;
+color:var(--text);
+padding:8px 12px;
+font-size:14px;
+text-align:center;
+outline:none;
+-webkit-appearance:none;
+appearance:none;
+font-weight:400;
+}
+
+input:disabled {
+ opacity: 0.6;
+ cursor: not-allowed;
+}
+
+input::placeholder{color:var(--sub);opacity:0.7}
+input:focus,select:focus{
+box-shadow:0 0 0 2px var(--accent);
+}
+
+select option{background:var(--option-bg);color:var(--option-text)}
+
+.btn-row{display:flex;gap:10px;margin-top:6px}
+
+button{
+cursor:pointer;
+border:none;
+border-radius:12px;
+font-weight:600;
+font-size:14px;
+padding:12px;
+transition:all 0.15s ease;
+}
+
+button:active{transform:scale(0.97);opacity:0.8}
+
+.btn-blue{
+width:48px;
+font-size:20px;
+padding:0;
+color:var(--accent);
+background:var(--input);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.btn-dark{
+background:var(--input);
+color:var(--accent);
+flex:1;
+}
+
+.btn-run{
+width:100%;
+margin-top:14px;
+padding:14px;
+border-radius:14px;
+background:var(--accent);
+color:var(--accentText);
+font-size:15px;
+font-weight:600;
+box-shadow:0 4px 12px var(--accent-glow);
+}
+
+.nav-btn{
+background:var(--card);
+border:0.5px solid var(--border);
+border-radius:var(--radius);
+padding:16px;
+margin-bottom:16px;
+box-shadow:var(--shadow);
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+color:var(--text);
+font-size:14px;
+font-weight:600;
+backdrop-filter:blur(30px) saturate(190%);
+-webkit-backdrop-filter:blur(30px) saturate(190%);
+}
+.nav-btn .icon{color:var(--sub);font-size:16px;}
+
+.screen{display:block}.hidden{display:none!important}
+
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+th{
+color:var(--sub);
+border-bottom:0.5px solid var(--border);
+padding:0 0 8px;
+text-align:left;
+font-size:11px;
+font-weight:600;
+text-transform:uppercase;
+letter-spacing:0.2px;
+}
+td{padding:12px 2px;border-bottom:0.5px solid var(--border)}
+.clickable-row{cursor:pointer}
+.clickable-row:active{opacity:0.6}
+.text-right{text-align:right}
+.highlight-qty{color:var(--accent);font-weight:600}
+
+.section-divider{
+  background:var(--divider-bg);
+  font-weight:600;
+  color:var(--accent);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+.section-divider td{padding:8px 6px;border-bottom:1px solid var(--border)}
+
+.btn-action-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.btn-action{
+background:var(--input);
+border:none;
+color:var(--accent);
+padding:12px;
+border-radius:12px;
+font-size:13px;
+font-weight:500;
+}
+
+.error-msg{color:var(--danger);font-size:12px;margin-top:8px;display:none;font-weight:500}
+
+.tab-header{
+display:flex;
+gap:2px;
+padding:2px;
+background:var(--input);
+border-radius:9px;
+margin-bottom:14px;
+}
+.tab-btn{
+flex:1;
+padding:7px;
+background:transparent;
+color:var(--sub);
+border:none;
+font-size:12px;
+font-weight:500;
+border-radius:7px;
+transition:all 0.2s ease;
+}
+.tab-btn.active{
+color:var(--text);
+background:var(--card2);
+box-shadow:0 2px 6px rgba(0,0,0,0.15);
+font-weight:600;
+}
+
+.swiper-container{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.swiper-container::-webkit-scrollbar{display:none}
+.swipe-page{flex:0 0 100%;scroll-snap-align:start;width:100%}
+
+.bar-container{
+background:var(--input);
+border-radius:8px;
+height:34px;
+width:100%;
+display:flex;
+overflow:hidden;
+margin-bottom:8px;
+position:relative;
+}
+.bar-piece{
+height:100%;
+background:var(--accent);
+border-right:1px solid rgba(255,255,255,0.2);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:10px;
+color:var(--accentText);
+font-weight:600;
+padding:0 2px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+.bar-waste{
+background:var(--danger-bg);
+color:var(--danger);
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:10px;
+flex:1;
+font-weight:500;
+}
+
+.glass-sheet-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: repeating-linear-gradient(45deg, rgba(120,120,128,0.16) 0 5px, rgba(120,120,128,0.05) 5px 10px);
+  border: 1.5px dashed var(--border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  margin: 8px auto 16px;
+}
+
+.glass-piece-box {
+  position: absolute;
+  background: var(--glass-fill);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--glass-text);
+  overflow: hidden;
+  line-height: 1.15;
+  word-break: break-word;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.layout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 14px;
+}
+
+.list-item-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+#settings-screen .card select,#settings-screen .card input, #pricing-screen .card input, #advanced-settings-screen .card input{text-align:left}
+
+/* Login Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+.modal-box {
+  background: var(--card2);
+  border: 0.5px solid var(--border);
+  padding: 20px;
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 340px;
+  box-shadow: var(--shadow);
+}
+.modal-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.adv-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+.adv-row label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+.adv-row .formula-desc {
+  font-size: 11px;
+  color: var(--sub);
+  margin-bottom: 6px;
+  font-family: monospace;
+}
+.adv-input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.adv-input-group input {
+  width: 90px;
+  text-align: center;
+}
+.adv-input-group span {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+/* Pricing categories / notices */
+.category-chip{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:10px}
+.warn-box{background:var(--danger-bg);color:var(--danger);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:500;margin:6px 0 10px;line-height:1.4}
+.notice-box{background:var(--input);color:var(--sub);border-radius:10px;padding:8px 10px;font-size:12px;margin-bottom:12px;line-height:1.4}
+.nav-cat{display:block;font-size:11px;font-weight:500;color:var(--sub);text-transform:none;margin-top:2px}
+.layout-stats{font-size:11px;color:var(--sub);margin:-10px 0 14px}
+
+/* Theme picker */
+.theme-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.theme-tile{
+position:relative;
+display:flex;
+flex-direction:column;
+gap:6px;
+min-width:0;
+padding:6px;
+border-radius:12px;
+border:2px solid transparent;
+background:var(--input);
+color:var(--text);
+font-size:11px;
+font-weight:500;
+text-align:left;
+}
+.theme-tile.active{border-color:var(--accent)}
+.theme-preview{position:relative;height:36px;border-radius:8px;overflow:hidden;border:0.5px solid rgba(128,128,128,0.4)}
+.theme-preview i{position:absolute;display:block}
+.theme-name{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme-check{
+position:absolute;
+top:9px;
+right:9px;
+width:16px;
+height:16px;
+border-radius:50%;
+background:var(--accent);
+color:var(--accentText);
+font-size:10px;
+line-height:16px;
+text-align:center;
+display:none;
+}
+.theme-tile.active .theme-check{display:block}
+
+@media(max-width:380px){
+.content-area{padding:12px}.card{padding:14px}.grid-3{gap:6px}
+.top-bar{padding:0 12px;gap:6px}
+.top-actions{gap:6px}
+.unit-select{width:70px;padding-left:8px}
+.brand-title{font-size:16px}
+}
+</style>
+</head>
+<body data-theme="light">
+
+<div class="app-container">
+  
+  <div class="top-bar">
+    <div class="brand-title" onclick="handleBrandClick()">
+      Alu Lord <span id="admin-badge" class="admin-badge">ADMIN</span>
+    </div>
+    <div class="top-actions">
+      <div class="unit-select-wrap">
+        <select id="global-unit" class="unit-select" autocomplete="off" onchange="convertAllUnits()" aria-label="Measurement unit" title="Measurement unit">
+          <option value="feet">ft / in</option>
+          <option value="mm">mm</option>
+        </select>
+      </div>
+      <button class="settings-btn" id="settings-toggle-btn" onclick="openSettings()" title="Settings">⚙</button>
+    </div>
+  </div>
+
+  <div class="content-area">
+    
+    <!-- Input Screen -->
+    <div id="input-screen" class="screen">
+      <div id="item-list"></div>
+
+      <div class="btn-row">
+        <button class="btn-blue" onclick="addItem()">+</button>
+        <button class="btn-dark" id="lbl-clear-all" onclick="clearAll()">clear all</button>
+      </div>
+
+      <button class="btn-run" id="lbl-run" onclick="calculateCutList()">run_calculation</button>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settings-screen" class="screen hidden">
+      <button class="back-nav-btn" id="lbl-back" onclick="closeSettings()" title="Back"></button>
+
+      <div class="card" id="category-card">
+        <div class="input-wrapper">
+          <label id="lbl-category" style="color:var(--accent);">pricing category</label>
+          <select id="pricing-category" autocomplete="off" onchange="onCategoryChange(this.value)"></select>
+        </div>
+      </div>
+
+      <button class="nav-btn" onclick="openPricingScreen()">
+        <span>
+          <span id="lbl-pricing-menu" style="text-transform: uppercase; font-size: 13px; color: var(--accent);">Pricing</span>
+          <small class="nav-cat" id="pricing-menu-cat"></small>
+        </span>
+        <span class="icon">➔</span>
+      </button>
+
+      <button class="nav-btn" onclick="openAdvancedSettings()">
+        <span>
+          <span id="lbl-advanced-menu" style="text-transform: uppercase; font-size: 13px; color: var(--accent);">Advanced Formula Allowances</span>
+          <small class="nav-cat" id="advanced-menu-cat"></small>
+        </span>
+        <span class="icon">➔</span>
+      </button>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="item-label" id="lbl-settings">SETTINGS</span>
+        </div>
+        
+        <div class="grid-2" style="margin-top:0; margin-bottom: 12px;">
+          <div class="input-wrapper">
+            <label id="lbl-glass-w">glass sheet width</label>
+            <input type="text" id="global-glass-w" value="4'" class="unit-input" autocomplete="off" onchange="handleInchInput(this)">
+          </div>
+          <div class="input-wrapper">
+            <label id="lbl-glass-h">glass sheet height</label>
+            <input type="text" id="global-glass-h" value="6'" class="unit-input" autocomplete="off" onchange="handleInchInput(this)">
+          </div>
+        </div>
+
+        <div class="input-wrapper" style="margin-bottom: 12px;">
+          <label id="lbl-glass-price" style="color:var(--accent);">glass sheet price (per sheet)</label>
+          <input type="number" id="global-glass-price" min="0" placeholder="price" class="pricing-input">
+        </div>
+
+        <div class="input-wrapper" style="margin-bottom: 12px;">
+          <label id="lbl-ws-roll">weatherstrip roll length</label>
+          <input type="text" id="global-ws-roll" value="150'" class="unit-input" autocomplete="off" onchange="handleInchInput(this)">
+        </div>
+
+        <div class="input-wrapper" style="margin-bottom: 12px;">
+          <label id="lbl-kerf">saw blade kerf</label>
+          <input type="text" id="global-kerf" value="0" class="unit-input" autocomplete="off" onchange="handleInchInput(this)">
+        </div>
+
+        <div class="input-wrapper" style="margin-bottom: 12px;">
+          <label id="lbl-lang">language</label>
+          <select id="global-lang" onchange="toggleLanguage()">
+            <option value="en">English</option>
+            <option value="my">မြန်မာစာ (Burmese)</option>
+          </select>
+        </div>
+
+        <div class="input-wrapper">
+          <label id="lbl-theme">color theme</label>
+          <div id="theme-grid" class="theme-grid" role="radiogroup" aria-labelledby="lbl-theme"></div>
+        </div>
+      </div>
+  
+    </div>
+
+    <!-- Advanced Formula Settings Screen -->
+    <div id="advanced-settings-screen" class="screen hidden">
+      <button class="back-nav-btn" id="lbl-adv-back" onclick="closeAdvancedSettings()" title="Back"></button>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="item-label" style="color:var(--accent);">ADVANCED FORMULA DEDUCTIONS &mdash; <span id="adv-category-name"></span></span>
+        </div>
+        
+        <div style="font-size:11px; color:var(--sub); margin-bottom:14px; margin-top:-6px;">
+          Keywords: <b>FH</b> (Frame Height), <b>FW</b> (Frame Width), <b>TFH</b> (Top Fixed Glass Height), <b>BFH</b> (Bottom Fixed Glass Height). Length deductions are in millimetres (mm); piece counts are in pcs. Defaults reproduce the standard calculation.
+        </div>
+        <div id="adv-readonly-note" class="notice-box hidden"></div>
+        <div id="adv-unconfigured-note" class="warn-box hidden"></div>
+
+        <div id="adv-form"></div>
+
+        <div class="btn-action-group hidden" id="adv-admin-actions" style="margin-top:20px;">
+          <button class="btn-action" style="background:var(--input); color:var(--danger);" onclick="resetAdvancedSettingsUI()">Reset Defaults</button>
+          <button class="btn-action" style="background:var(--accent); color:var(--accentText);" onclick="saveAdvancedSettingsFromUI()">Save Settings</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Pricing Screen (per selected category) -->
+    <div id="pricing-screen" class="screen hidden">
+      <button class="back-nav-btn" id="lbl-pricing-back" onclick="closePricingScreen()" title="Back"></button>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="item-label" id="lbl-pricing-cat" style="color:var(--accent);">PRICING CATEGORY</span>
+        </div>
+        
+        <div style="font-size:11px; color:var(--sub); margin-bottom:14px; margin-top:-6px;" id="lbl-pricing-desc">
+          Enter unit prices to automatically calculate the total estimated cost.
+        </div>
+
+        <!-- Admin Save Button -->
+        <button id="btn-save-cloud" class="btn-run hidden" style="margin-top:0; margin-bottom:16px; background:#34C759;" onclick="savePricingToCloud()">
+          ☁ Save Prices to Cloud
+        </button>
+
+        <div class="input-wrapper" style="margin-bottom: 16px;">
+          <label id="lbl-misc-price" style="color:var(--accent);">LABOR & MISC PRICE (PER SQFT)</label>
+          <input type="number" id="global-misc-price" min="0" placeholder="price" class="pricing-input">
+        </div>
+
+        <div class="section-divider" style="background:transparent; padding:0; margin-bottom:8px; font-size:11px;" id="lbl-sec-profiles-price">Aluminium Profiles (Price per bar)</div>
+        <div id="profiles-price-container" style="margin-bottom:16px;"></div>
+
+        <div class="section-divider" style="background:transparent; padding:0; margin-bottom:8px; font-size:11px;" id="lbl-sec-acc-price">Accessories (Price per pc/roll)</div>
+        <div class="grid-2" id="acc-price-container"></div>
+      </div>
+    </div>
+
+    <!-- Output Screen -->
+    <div id="output-screen" class="screen hidden">
+      <button class="back-nav-btn" id="lbl-return" onclick="showInput()" title="Return"></button>
+
+      <div class="card">
+        <div id="output-category" class="category-chip"></div>
+        <div id="output-category-warning" class="warn-box hidden"></div>
+        <table>
+          <thead>
+            <tr>
+              <th id="lbl-tbl-item">item</th>
+              <th class="text-right" id="lbl-tbl-bar">qty</th>
+              <th class="text-right" id="lbl-tbl-cost">cost (Ks)</th>
+            </tr>
+          </thead>
+          <tbody id="report-body"></tbody>
+        </table>
+
+        <div class="btn-action-group">
+          <button class="btn-action" id="lbl-opti" onclick="copyOpticutterFormat()">copy for opticutter</button>
+          <button class="btn-action" id="lbl-pdf" onclick="window.print()">print pdf</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detail Screen -->
+    <div id="detail-screen" class="screen hidden">
+      <button class="back-nav-btn" id="lbl-detail-back" onclick="showOutput()" title="Back"></button>
+
+      <div class="card">
+        <div class="item-label" id="detail-item-title" style="font-size:14px; text-transform:uppercase; color:var(--accent); margin-bottom:12px;">ITEM DETAIL</div>
+
+        <div class="tab-header">
+          <button class="tab-btn active" id="tab-btn-text" onclick="switchTab(0)">Required List</button>
+          <button class="tab-btn" id="tab-btn-visual" onclick="switchTab(1)">Cutting Diagram</button>
+        </div>
+
+        <div class="swiper-container" id="detail-swiper" onscroll="handleScroll()">
+          <div class="swipe-page" id="page-list"></div>
+          <div class="swipe-page" id="page-diagram"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Admin Login Modal -->
+<div id="login-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">Admin Login</div>
+    <div class="input-wrapper" style="margin-bottom: 10px;">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="admin@alulord.com">
+    </div>
+    <div class="input-wrapper" style="margin-bottom: 14px;">
+      <label>Password</label>
+      <input type="password" id="login-pass" placeholder="••••••••">
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn-dark" onclick="closeLoginModal()">Cancel</button>
+      <button class="btn-run" style="margin-top:0; flex:1;" onclick="performLogin()">Login</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // -------------------------------------------------------------
+  // FIREBASE CONFIGURATION
+  // -------------------------------------------------------------
+  const firebaseConfig = {
+    apiKey: "AIzaSyCr1nQWmuMLZCLEzuZvwIknIarTKhPhVw8",
+    authDomain: "alu-lord.firebaseapp.com",
+    projectId: "alu-lord",
+    storageBucket: "alu-lord.firebasestorage.app",
+    messagingSenderId: "1039089681865",
+    appId: "1:1039089681865:web:ddca2f0ed0535a8852d418",
+    measurementId: "G-4005X3C2QS"
+  };
+
+  // Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  let isAdmin = false;
+
+  // Track Firebase Auth State with Administrator Email
+  const ADMIN_EMAIL = "thegreatsonata2002@gmail.com";
+
+  auth.onAuthStateChanged(user => {
+    if (user && user.email === ADMIN_EMAIL) {
+      // Admin authenticated
+      isAdmin = true;
+      document.getElementById('admin-badge').style.display = 'inline-block';
+      document.getElementById('btn-save-cloud').classList.remove('hidden');
+      togglePricingFieldsEditable(true);
+      refreshAdminDependentUI();
+    } else {
+      // Public User
+      isAdmin = false;
+      document.getElementById('admin-badge').style.display = 'none';
+      document.getElementById('btn-save-cloud').classList.add('hidden');
+      togglePricingFieldsEditable(true);
+      refreshAdminDependentUI();
+    }
+  });
+
+  // Advanced formula allowances can only be edited / saved by the authenticated Admin.
+  // (UI gate only uses the existing isAdmin flag; real protection of the Firestore data must also be
+  //  enforced by your Firestore security rules.) Only touches DOM + isAdmin so it is safe to run early.
+  function refreshAdminDependentUI() {
+    const editable = isAdmin === true;
+    document.querySelectorAll('#advanced-settings-screen .adv-input-group input').forEach(i => { i.disabled = !editable; });
+    const actions = document.getElementById('adv-admin-actions');
+    if (actions) actions.classList.toggle('hidden', !editable);
+    const note = document.getElementById('adv-readonly-note');
+    if (note) note.classList.toggle('hidden', editable);
+    // category state is declared further down; if auth fires before it exists, init will refresh the labels
+    try { updateCategoryLabels(); } catch (e) {}
+  }
+
+  // Enable/Disable Pricing Inputs for Public vs Admin
+  function togglePricingFieldsEditable(editable) {
+    document.querySelectorAll('.pricing-input').forEach(input => {
+      input.disabled = !editable;
+    });
+
+    document.querySelectorAll('#profiles-price-container input[id^="length-"]').forEach(input => {
+      input.disabled = !editable;
+    });
+  }
+
+  // Secret Click Mechanism on Title "Alu Lord"
+  let titleClickCount = 0;
+  let titleClickTimer = null;
+
+  function handleBrandClick() {
+    titleClickCount++;
+    if (titleClickCount === 3) {
+      titleClickCount = 0;
+      clearTimeout(titleClickTimer);
+      if (isAdmin) {
+        if (confirm("Admin Mode သို့ ဝင်ထားပြီးဖြစ်သည်။ Logout ထွက်လိုပါသလား?")) {
+          auth.signOut();
+        }
+      } else {
+        document.getElementById('login-modal').classList.remove('hidden');
+      }
+    } else {
+      clearTimeout(titleClickTimer);
+      titleClickTimer = setTimeout(() => { titleClickCount = 0; }, 1000);
+    }
+  }
+
+  function closeLoginModal() {
+    document.getElementById('login-modal').classList.add('hidden');
+  }
+
+  function performLogin() {
+    const email = document.getElementById('login-email').value;
+    const pass = document.getElementById('login-pass').value;
+
+    auth.signInWithEmailAndPassword(email, pass)
+      .then(() => {
+        alert("Admin Login အောင်မြင်ပါသည်။ ဈေးနှုန်းများ ပြင်ဆင်နိုင်ပါပြီ။");
+        closeLoginModal();
+      })
+      .catch(err => {
+        alert("Login မှားယွင်းနေပါသည်။ " + err.message);
+      });
+  }
+
+  // -------------------------------------------------------------
+  // ADVANCED FORMULA ALLOWANCES STATE
+  // -------------------------------------------------------------
+  // Every adjustable value of the calculation: length deductions (mm) and piece counts (pcs).
+  // The defaults reproduce the application's original calculation exactly.
+  const ADV_SCHEMA = [
+  {
+    "title": "Side Frame",
+    "rows": [
+      {
+        "key": "sideFrameDed",
+        "label": "Side Frame length",
+        "formula": "Length = FH - [deduction]",
+        "unit": "mm",
+        "def": 0
+      },
+      {
+        "key": "qSideFrame",
+        "label": "Side Frame pieces",
+        "formula": "pcs per window",
+        "unit": "pcs",
+        "def": 2,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Top / Bottom Frame",
+    "rows": [
+      {
+        "key": "frameW",
+        "label": "Top & Bottom Frame length",
+        "formula": "Length = FW - [deduction]",
+        "unit": "mm",
+        "def": 30
+      },
+      {
+        "key": "qTopFrame",
+        "label": "Top Frame pieces",
+        "formula": "pcs per window (top frame / top frame + fixed)",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      },
+      {
+        "key": "qBtmFrame",
+        "label": "Bottom Frame pieces",
+        "formula": "pcs per window",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Lock Frame",
+    "rows": [
+      {
+        "key": "lockNoFixed",
+        "label": "1. No Fixed Glass",
+        "formula": "Length = FH - [deduction]",
+        "unit": "mm",
+        "def": 45
+      },
+      {
+        "key": "lockTopFixed",
+        "label": "2. Top Fixed Glass Only",
+        "formula": "Length = FH - (TFH + [deduction])",
+        "unit": "mm",
+        "def": 10
+      },
+      {
+        "key": "lockBotFixed",
+        "label": "3. Bottom Fixed Glass Only",
+        "formula": "Length = FH - (BFH + [deduction])",
+        "unit": "mm",
+        "def": 45
+      },
+      {
+        "key": "lockBothFixed",
+        "label": "4. Both Top & Bottom Fixed Glass",
+        "formula": "Length = FH - (TFH + BFH + [deduction])",
+        "unit": "mm",
+        "def": 10
+      },
+      {
+        "key": "qLockFrame",
+        "label": "Lock Frame pieces",
+        "formula": "pcs per door leaf",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Hook Frame",
+    "rows": [
+      {
+        "key": "hookFrameDed",
+        "label": "Hook Frame length",
+        "formula": "Length = Lock Frame length - [deduction]",
+        "unit": "mm",
+        "def": 0
+      },
+      {
+        "key": "qHookFrame",
+        "label": "Hook Frame pieces",
+        "formula": "pcs per door leaf",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Meeting Stile",
+    "rows": [
+      {
+        "key": "meetingStileDed",
+        "label": "Meeting Stile length",
+        "formula": "Length = Lock Frame length - [deduction]",
+        "unit": "mm",
+        "def": 0
+      },
+      {
+        "key": "qMeetingStile4s",
+        "label": "Meeting Stile pieces (4-slide)",
+        "formula": "pcs per window",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      },
+      {
+        "key": "qMeetingStile2s",
+        "label": "Meeting Stile pieces (2-slide)",
+        "formula": "pcs per window",
+        "unit": "pcs",
+        "def": 0,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Wheel Frame",
+    "rows": [
+      {
+        "key": "wheel2s",
+        "label": "Two-Slide Wheel Frame",
+        "formula": "Length = (FW - [deduction]) / 2",
+        "unit": "mm",
+        "def": 123
+      },
+      {
+        "key": "wheel4s",
+        "label": "Four-Slide Wheel Frame",
+        "formula": "Length = (FW - [deduction]) / 4",
+        "unit": "mm",
+        "def": 216
+      },
+      {
+        "key": "qWheelFrame",
+        "label": "Wheel Frame pieces",
+        "formula": "pcs per door leaf",
+        "unit": "pcs",
+        "def": 2,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Fixed Frame",
+    "rows": [
+      {
+        "key": "fixedFrameW",
+        "label": "Fixed Frame length",
+        "formula": "Length = FW - [deduction]",
+        "unit": "mm",
+        "def": 30
+      },
+      {
+        "key": "qFixedFrame",
+        "label": "Fixed Frame pieces",
+        "formula": "pcs per fixed section (top / bottom)",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Fixed Middle Frame",
+    "rows": [
+      {
+        "key": "midTop",
+        "label": "Top Fixed Middle Frame",
+        "formula": "Length = TFH - [deduction]",
+        "unit": "mm",
+        "def": 85
+      },
+      {
+        "key": "midBot",
+        "label": "Bottom Fixed Middle Frame",
+        "formula": "Length = BFH - [deduction]",
+        "unit": "mm",
+        "def": 35
+      },
+      {
+        "key": "qFixedMid2s",
+        "label": "Fixed Middle Frame pieces (2-slide)",
+        "formula": "pcs per fixed section",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      },
+      {
+        "key": "qFixedMid4s",
+        "label": "Fixed Middle Frame pieces (4-slide)",
+        "formula": "pcs per fixed section",
+        "unit": "pcs",
+        "def": 3,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Inner Fixed Side Close",
+    "rows": [
+      {
+        "key": "sideInnerTop",
+        "label": "Top Inner Side Close",
+        "formula": "Length = TFH - [deduction]",
+        "unit": "mm",
+        "def": 85
+      },
+      {
+        "key": "sideInnerBot",
+        "label": "Bottom Inner Side Close",
+        "formula": "Length = BFH - [deduction]",
+        "unit": "mm",
+        "def": 35
+      },
+      {
+        "key": "qSideCloseInner",
+        "label": "Inner Side Close pieces",
+        "formula": "pcs per fixed section",
+        "unit": "pcs",
+        "def": 2,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Outer Fixed Side Close",
+    "rows": [
+      {
+        "key": "outerClose",
+        "label": "Outer Fixed Side Close",
+        "formula": "Length = FW - [deduction]",
+        "unit": "mm",
+        "def": 60
+      },
+      {
+        "key": "qSideCloseOuter",
+        "label": "Outer Side Close pieces",
+        "formula": "pcs per bottom fixed section",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Fixed Click",
+    "rows": [
+      {
+        "key": "clickTopV",
+        "label": "Top Fixed Click (Vertical)",
+        "formula": "Length = TFH - [deduction]",
+        "unit": "mm",
+        "def": 85
+      },
+      {
+        "key": "clickBotV",
+        "label": "Bottom Fixed Click (Vertical)",
+        "formula": "Length = BFH - [deduction]",
+        "unit": "mm",
+        "def": 35
+      },
+      {
+        "key": "click2sH",
+        "label": "Two-Slide Fixed Click (Horizontal)",
+        "formula": "Length = (FW - [deduction]) / 2",
+        "unit": "mm",
+        "def": 95
+      },
+      {
+        "key": "click4sH",
+        "label": "Four-Slide Fixed Click (Horizontal)",
+        "formula": "Length = (FW - [deduction]) / 4",
+        "unit": "mm",
+        "def": 165
+      },
+      {
+        "key": "qClickV2s",
+        "label": "Vertical Click pieces (2-slide)",
+        "formula": "pcs per fixed section",
+        "unit": "pcs",
+        "def": 4,
+        "int": true
+      },
+      {
+        "key": "qClickV4s",
+        "label": "Vertical Click pieces (4-slide)",
+        "formula": "pcs per fixed section",
+        "unit": "pcs",
+        "def": 8,
+        "int": true
+      },
+      {
+        "key": "qClickH2s",
+        "label": "Horizontal Click pieces (2-slide)",
+        "formula": "pcs per fixed section",
+        "unit": "pcs",
+        "def": 4,
+        "int": true
+      },
+      {
+        "key": "qClickH4s",
+        "label": "Horizontal Click pieces (4-slide)",
+        "formula": "pcs per fixed section",
+        "unit": "pcs",
+        "def": 8,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Glass Sizes",
+    "rows": [
+      {
+        "key": "glassDoorH",
+        "label": "Door Leaf Glass height",
+        "formula": "Height = Lock Frame length - [deduction]",
+        "unit": "mm",
+        "def": 80
+      },
+      {
+        "key": "glassDoorW",
+        "label": "Door Leaf Glass width",
+        "formula": "Width = Door Leaf (wheel) Frame length - [deduction]",
+        "unit": "mm",
+        "def": 5
+      },
+      {
+        "key": "glassTopH",
+        "label": "Top Fixed Glass height",
+        "formula": "Height = TFH - [deduction]",
+        "unit": "mm",
+        "def": 90
+      },
+      {
+        "key": "glassBotH",
+        "label": "Bottom Fixed Glass height",
+        "formula": "Height = BFH - [deduction]",
+        "unit": "mm",
+        "def": 40
+      },
+      {
+        "key": "glassFixedW2s",
+        "label": "Two-Slide Fixed Glass width",
+        "formula": "Width = (FW - [deduction]) / 2",
+        "unit": "mm",
+        "def": 105
+      },
+      {
+        "key": "glassFixedW4s",
+        "label": "Four-Slide Fixed Glass width",
+        "formula": "Width = (FW - [deduction]) / 4",
+        "unit": "mm",
+        "def": 185
+      },
+      {
+        "key": "qLeafGlass",
+        "label": "Door Leaf Glass pieces",
+        "formula": "pcs per door leaf",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      },
+      {
+        "key": "qFixedGlass",
+        "label": "Fixed Glass pieces",
+        "formula": "pcs per slide panel, per fixed section",
+        "unit": "pcs",
+        "def": 1,
+        "int": true
+      }
+    ]
+  },
+  {
+    "title": "Accessories",
+    "rows": [
+      {
+        "key": "qTopCap",
+        "label": "Top Cap",
+        "formula": "pcs per slide panel",
+        "unit": "pcs",
+        "def": 2,
+        "int": true
+      },
+      {
+        "key": "qBotCap",
+        "label": "Bottom Cap",
+        "formula": "pcs per slide panel",
+        "unit": "pcs",
+        "def": 2,
+        "int": true
+      },
+      {
+        "key": "qWheelAcc",
+        "label": "Wheel",
+        "formula": "pcs per slide panel",
+        "unit": "pcs",
+        "def": 2,
+        "int": true
+      },
+      {
+        "key": "qHookLock2s",
+        "label": "Hook Lock (2-slide)",
+        "formula": "pcs per window",
+        "unit": "pcs",
+        "def": 2,
+        "int": true
+      },
+      {
+        "key": "qHookLock4s",
+        "label": "Hook Lock (4-slide)",
+        "formula": "pcs per window",
+        "unit": "pcs",
+        "def": 3,
+        "int": true
+      },
+      {
+        "key": "weatherstripPerLock",
+        "label": "Weatherstrip",
+        "formula": "runs per lock-frame length (ft = lock length x slides x this)",
+        "unit": "pcs",
+        "def": 2,
+        "int": false
+      }
+    ]
+  }
+];
+
+  const ADV_ROWS = [].concat(...ADV_SCHEMA.map(g => g.rows));
+
+  const DEFAULT_ADVANCED_SETTINGS = {};
+  ADV_ROWS.forEach(r => { DEFAULT_ADVANCED_SETTINGS[r.key] = r.def; });
+
+  // Settings that used to share one value: when an older saved object has only the shared key,
+  // the new separate key inherits it, so previously saved results do not change.
+  const ADV_INHERIT = [['fixedFrameW', 'frameW'], ['sideInnerTop', 'midTop'], ['sideInnerBot', 'midBot']];
+
+  // -------------------------------------------------------------
+  // PRICING CATEGORIES
+  // Each category has its OWN prices, stock lengths, accessory prices, glass/misc price and
+  // advanced formula allowances. The old single "728" data is mapped to "728 Kizuna".
+  //
+  // Firestore (same document as before: settings/pricing):
+  //   categories.<categoryId> = { glassPrice, miscPrice, prices, lengths, advancedSettings }
+  //   The old flat fields (prices, lengths, advancedSettings ...) are NEVER deleted or rewritten;
+  //   they are read as the "728 Kizuna" data until categories.728kizuna exists.
+  // -------------------------------------------------------------
+  const PRICING_CATEGORIES = [
+    { id: '728kizuna',  name: '728 Kizuna' },
+    { id: '728onpoint', name: '728 On Point' },
+    { id: '878kizuna',  name: '878 Kizuna' }
+  ];
+  const DEFAULT_CATEGORY_ID = '728kizuna';
+  const CATEGORY_STORAGE_KEY = 'aluLordPricingCategory';
+
+  const ADV_FIELD_IDS = {};
+  ADV_ROWS.forEach(r => { ADV_FIELD_IDS[r.key] = 'adv-' + r.key; });
+
+  // 728 On Point uses the same standard 728 allowances as 728 Kizuna (stored separately, editable separately)
+  const STANDARD_728_CATEGORIES = ['728kizuna', '728onpoint'];
+
+  let selectedCategoryId = DEFAULT_CATEGORY_ID;
+  let categoryUiReady = false;
+  const categoryAdvanced = {};   // id -> { values:{...}, configured:boolean }
+  const categoryWorking = {};    // id -> { glassPrice, miscPrice, prices:{inputId:value}, lengths:{inputId:inches} }
+  let cloudCategories = {};      // id -> normalized copy of what the cloud holds
+
+  // The allowances the calculation engine reads. Always points at the SELECTED category's values.
+  let advancedSettings = { ...DEFAULT_ADVANCED_SETTINGS };
+
+  function isValidCategory(id) {
+    return PRICING_CATEGORIES.some(c => c.id === id);
+  }
+
+  function getCategoryName(id) {
+    const c = PRICING_CATEGORIES.find(x => x.id === id);
+    return c ? c.name : id;
+  }
+
+  // placeholder for a category whose deductions are not configured yet:
+  // length deductions 0 mm, piece counts stay at the standard counts (0 pieces would be meaningless)
+  function zeroAdvancedSettings() {
+    const z = {};
+    ADV_ROWS.forEach(r => { z[r.key] = r.unit === 'mm' ? 0 : r.def; });
+    return z;
+  }
+
+  // 728 Kizuna and 728 On Point use the same standard 728 values (each is stored and edited separately).
+  // Other categories (878 Kizuna) are NOT assumed to match 728: they start as "not configured"
+  // until the Admin enters and saves real values.
+  function initialAdvancedFor(id) {
+    if (STANDARD_728_CATEGORIES.indexOf(id) >= 0) return { values: { ...DEFAULT_ADVANCED_SETTINGS }, configured: true };
+    return { values: zeroAdvancedSettings(), configured: false };
+  }
+
+  function sanitizeAdvanced(src, base) {
+    const out = { ...base };
+    if (src && typeof src === 'object') {
+      const has = {};
+      ADV_ROWS.forEach(r => {
+        const v = src[r.key];
+        if (typeof v === 'number' && isFinite(v) && v >= 0) {
+          out[r.key] = (r.unit === 'pcs' && r.int !== false) ? Math.round(v) : v;
+          has[r.key] = true;
+        }
+      });
+      ADV_INHERIT.forEach(pair => { if (!has[pair[0]] && has[pair[1]]) out[pair[0]] = out[pair[1]]; });
+    }
+    return out;
+  }
+
+  function advLocalKey(id) { return 'aluLordAdvancedSettings:' + id; }
+
+  function cacheAdvancedLocally(id) {
+    try { localStorage.setItem(advLocalKey(id), JSON.stringify(categoryAdvanced[id].values)); } catch (e) {}
+  }
+
+  function getSavedCategory() {
+    try {
+      const id = localStorage.getItem(CATEGORY_STORAGE_KEY);
+      if (id && isValidCategory(id)) return id;
+    } catch (e) {}
+    return DEFAULT_CATEGORY_ID;
+  }
+
+  function loadAdvancedSettingsFromLocal() {
+    PRICING_CATEGORIES.forEach(c => {
+      const entry = initialAdvancedFor(c.id);
+      let raw = null;
+      try {
+        raw = localStorage.getItem(advLocalKey(c.id));
+        // pre-category installs stored one object: it was the 728 data
+        if (raw == null && c.id === DEFAULT_CATEGORY_ID) raw = localStorage.getItem('aluLordAdvancedSettings');
+      } catch (e) {}
+      if (raw) {
+        try {
+          entry.values = sanitizeAdvanced(JSON.parse(raw), entry.values);
+          entry.configured = true;
+        } catch (e) {}
+      }
+      categoryAdvanced[c.id] = entry;
+    });
+    advancedSettings = categoryAdvanced[selectedCategoryId].values;
+    populateAdvancedSettingsUI();
+  }
+
+  // Build the Advanced Formula form (all deductions + piece counts) from ADV_SCHEMA
+  function renderAdvancedForm() {
+    const host = document.getElementById('adv-form');
+    if (!host) return;
+    let html = '';
+    ADV_SCHEMA.forEach(g => {
+      html += `<div class="section-divider" style="background:transparent; padding:0; margin-bottom:10px; font-size:11px;">${g.title}</div>`;
+      g.rows.forEach(r => {
+        const step = r.unit === 'pcs' ? (r.int === false ? '0.1' : '1') : '0.1';
+        html += `
+        <div class="adv-row">
+          <label>${r.label}</label>
+          <div class="formula-desc">${r.formula}</div>
+          <div class="adv-input-group">
+            <input type="number" id="${ADV_FIELD_IDS[r.key]}" min="0" step="${step}" inputmode="decimal" autocomplete="off"> <span>${r.unit}</span>
+          </div>
+        </div>`;
+      });
+    });
+    host.innerHTML = html;
+  }
+
+  function populateAdvancedSettingsUI() {
+    for (let k in ADV_FIELD_IDS) {
+      const el = document.getElementById(ADV_FIELD_IDS[k]);
+      if (el) el.value = advancedSettings[k];
+    }
+    refreshAdminDependentUI();
+  }
+
+  function saveAdvancedSettingsFromUI() {
+    if (!isAdmin) { alert(tr('advAdminOnly')); return; }
+
+    let temp = {};
+    for (const r of ADV_ROWS) {
+      const raw = document.getElementById(ADV_FIELD_IDS[r.key]).value;
+      const val = parseFloat(raw);
+      if (raw === '' || isNaN(val) || val < 0) {
+        alert('Please enter a valid non-negative number for: ' + r.label);
+        return;
+      }
+      if (r.unit === 'pcs' && r.int !== false && !Number.isInteger(val)) {
+        alert('Piece counts must be whole numbers: ' + r.label);
+        return;
+      }
+      temp[r.key] = val;
+    }
+
+    const id = selectedCategoryId;
+    categoryAdvanced[id] = { values: { ...temp }, configured: true };
+    advancedSettings = categoryAdvanced[id].values;
+    cacheAdvancedLocally(id);
+    refreshAdminDependentUI();
+
+    // Only THIS category's allowances are written (nested merge: other categories are untouched)
+    db.collection('settings').doc('pricing')
+      .set({ categories: { [id]: { advancedSettings: { ...temp } } } }, { merge: true })
+      .then(() => {
+        const cc = cloudCategories[id] || normalizeCategoryDoc(null);
+        cc.advancedSettings = { ...temp };
+        cloudCategories[id] = cc;
+        alert("[" + getCategoryName(id) + "] Advanced formula settings saved to the cloud.");
+      })
+      .catch(err => {
+        alert("[" + getCategoryName(id) + "] Saved on this device only - cloud save failed: " + err.message);
+      });
+  }
+
+  function resetAdvancedSettingsUI() {
+    if (!isAdmin) { alert(tr('advAdminOnly')); return; }
+    if (confirm("Reset [" + getCategoryName(selectedCategoryId) + "] formula deduction allowances to defaults?")) {
+      const id = selectedCategoryId;
+      categoryAdvanced[id] = initialAdvancedFor(id);
+      advancedSettings = categoryAdvanced[id].values;
+      try {
+        if (categoryAdvanced[id].configured) cacheAdvancedLocally(id);
+        else localStorage.removeItem(advLocalKey(id));
+      } catch (e) {}
+      populateAdvancedSettingsUI();
+    }
+  }
+
+  function openAdvancedSettings() {
+    document.getElementById('settings-screen').classList.add('hidden');
+    document.getElementById('advanced-settings-screen').classList.remove('hidden');
+    populateAdvancedSettingsUI();
+    window.scrollTo(0, 0);
+  }
+
+  function closeAdvancedSettings() {
+    document.getElementById('advanced-settings-screen').classList.add('hidden');
+    document.getElementById('settings-screen').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  // ---------- category data helpers ----------
+  function normalizeCategoryDoc(src) {
+    const out = { glassPrice: null, miscPrice: null, prices: {}, lengths: {}, advancedSettings: null };
+    if (!src || typeof src !== 'object') return out;
+    if (src.prices && typeof src.prices === 'object') Object.assign(out.prices, src.prices);
+    if (src.lengths && typeof src.lengths === 'object') Object.assign(out.lengths, src.lengths);
+    out.glassPrice = src.glassPrice != null ? src.glassPrice : (out.prices['global-glass-price'] != null ? out.prices['global-glass-price'] : null);
+    out.miscPrice = src.miscPrice != null ? src.miscPrice : (out.prices['global-misc-price'] != null ? out.prices['global-misc-price'] : null);
+    if (src.advancedSettings && typeof src.advancedSettings === 'object') out.advancedSettings = { ...src.advancedSettings };
+    return out;
+  }
+
+  function mergeNormalized(base, over) {
+    return {
+      glassPrice: over.glassPrice != null ? over.glassPrice : base.glassPrice,
+      miscPrice: over.miscPrice != null ? over.miscPrice : base.miscPrice,
+      prices: { ...base.prices, ...over.prices },
+      lengths: { ...base.lengths, ...over.lengths },
+      advancedSettings: over.advancedSettings || base.advancedSettings
+    };
+  }
+
+  function extractCloudCategories(data) {
+    const cats = (data && data.categories && typeof data.categories === 'object') ? data.categories : {};
+    // Pre-category data (flat fields on the document) = the original 728 data -> "728 Kizuna"
+    const legacy = normalizeCategoryDoc({
+      glassPrice: data.glassPrice, miscPrice: data.miscPrice,
+      prices: data.prices, lengths: data.lengths, advancedSettings: data.advancedSettings
+    });
+    const result = {};
+    PRICING_CATEGORIES.forEach(c => {
+      const own = cats[c.id] ? normalizeCategoryDoc(cats[c.id]) : null;
+      if (c.id === DEFAULT_CATEGORY_ID) result[c.id] = own ? mergeNormalized(legacy, own) : legacy;
+      else if (own) result[c.id] = own;
+    });
+    return result;
+  }
+
+  function tempKey(id) { return 'aluLordTemporaryPricing:' + id; }
+
+  function readTemporary(id) {
+    try {
+      const raw = sessionStorage.getItem(tempKey(id));
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  // working copy = cloud values + anything typed earlier in this browser session
+  function buildWorking(id) {
+    const cc = cloudCategories[id];
+    const w = {
+      glassPrice: cc && cc.glassPrice != null ? cc.glassPrice : '',
+      miscPrice: cc && cc.miscPrice != null ? cc.miscPrice : '',
+      prices: {}, lengths: {}
+    };
+    if (cc) {
+      for (let k in cc.prices) {
+        if (k === 'global-glass-price' || k === 'global-misc-price') continue;
+        w.prices[k] = cc.prices[k];
+      }
+      for (let k in cc.lengths) {
+        const n = Number(cc.lengths[k]);
+        if (isFinite(n) && n > 0) w.lengths[k] = n;
+      }
+    }
+    const t = readTemporary(id);
+    if (t) {
+      if (t.prices) {
+        for (let k in t.prices) {
+          if (k === 'global-glass-price') w.glassPrice = t.prices[k];
+          else if (k === 'global-misc-price') w.miscPrice = t.prices[k];
+          else w.prices[k] = t.prices[k];
+        }
+      }
+      if (t.lengths) {
+        for (let k in t.lengths) {
+          const n = Number(t.lengths[k]);
+          if (isFinite(n) && n > 0) w.lengths[k] = n; else delete w.lengths[k];
+        }
+      }
+    }
+    return w;
+  }
+
+  function ensureWorking(id) {
+    if (!categoryWorking[id]) categoryWorking[id] = buildWorking(id);
+    return categoryWorking[id];
+  }
+
+  function captureWorkingFromUI(id) {
+    const w = {
+      glassPrice: document.getElementById('global-glass-price').value,
+      miscPrice: document.getElementById('global-misc-price').value,
+      prices: {}, lengths: {}
+    };
+    document.querySelectorAll('.pricing-input').forEach(input => {
+      if (!input.id || input.id === 'global-glass-price' || input.id === 'global-misc-price') return;
+      w.prices[input.id] = input.value;
+    });
+    document.querySelectorAll('#profiles-price-container input[id^="length-"]').forEach(input => {
+      let inches = parseFloat(input.dataset.inches);
+      if (isNaN(inches)) inches = parseLengthStrict(input.value, currentUnit);
+      if (inches != null && isFinite(inches) && inches > 0) w.lengths[input.id] = inches;
+    });
+    categoryWorking[id] = w;
+    return w;
+  }
+
+  // Fully replaces every price / length field with the category's values (blank when it has none),
+  // so one category's numbers can never leak into another.
+  function applyWorkingToUI(id) {
+    const w = ensureWorking(id);
+    document.getElementById('global-glass-price').value = w.glassPrice != null ? w.glassPrice : '';
+    document.getElementById('global-misc-price').value = w.miscPrice != null ? w.miscPrice : '';
+    document.querySelectorAll('.pricing-input').forEach(input => {
+      if (!input.id || input.id === 'global-glass-price' || input.id === 'global-misc-price') return;
+      input.value = w.prices[input.id] != null ? w.prices[input.id] : '';
+    });
+    document.querySelectorAll('#profiles-price-container input[id^="length-"]').forEach(input => {
+      const n = Number(w.lengths[input.id]);
+      if (isFinite(n) && n > 0) {
+        input.dataset.inches = String(n);
+        input.value = displayLength(n);
+      } else {
+        delete input.dataset.inches;
+        input.value = '';
+      }
+    });
+  }
+
+  function setPricingCategory(id, opts) {
+    opts = opts || {};
+    if (!isValidCategory(id)) id = DEFAULT_CATEGORY_ID;
+
+    if (categoryUiReady && id !== selectedCategoryId) {
+      // keep whatever was typed for the category we are leaving
+      captureWorkingFromUI(selectedCategoryId);
+      saveTemporaryPricing();
+    }
+    selectedCategoryId = id;
+
+    if (!categoryAdvanced[id]) categoryAdvanced[id] = initialAdvancedFor(id);
+    advancedSettings = categoryAdvanced[id].values;
+
+    applyWorkingToUI(id);
+    populateAdvancedSettingsUI();
+    updateCategoryLabels();
+
+    const sel = document.getElementById('pricing-category');
+    if (sel && sel.value !== id) sel.value = id;
+    if (!opts.noPersist) {
+      try { localStorage.setItem(CATEGORY_STORAGE_KEY, id); } catch (e) {}
+    }
+  }
+
+  function onCategoryChange(id) {
+    setPricingCategory(id);
+  }
+
+  function initCategorySelect() {
+    const sel = document.getElementById('pricing-category');
+    if (!sel) return;
+    sel.innerHTML = '';
+    PRICING_CATEGORIES.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c.id;
+      o.textContent = c.name;
+      sel.appendChild(o);
+    });
+    sel.value = selectedCategoryId;
+  }
+
+  function updateCategoryLabels() {
+    const name = getCategoryName(selectedCategoryId);
+    const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+    set('lbl-category', tr('category'));
+    set('lbl-pricing-menu', tr('pricingMenu'));
+    set('pricing-menu-cat', name);
+    set('advanced-menu-cat', name);
+    set('lbl-pricing-cat', tr('pricingCat') + ': ' + name);
+    set('adv-category-name', name);
+    set('adv-readonly-note', tr('advAdminOnly'));
+
+    const entry = categoryAdvanced[selectedCategoryId];
+    const warn = document.getElementById('adv-unconfigured-note');
+    if (warn) {
+      const show = !!entry && !entry.configured;
+      warn.classList.toggle('hidden', !show);
+      if (show) warn.textContent = isAdmin ? tr('advUnconfiguredAdmin') : tr('advUnconfiguredUser');
+    }
+    const sel = document.getElementById('pricing-category');
+    if (sel && sel.value !== selectedCategoryId) sel.value = selectedCategoryId;
+  }
+
+  function updateOutputCategoryInfo() {
+    const chip = document.getElementById('output-category');
+    if (chip) chip.textContent = tr('category') + ': ' + getCategoryName(selectedCategoryId);
+    const warn = document.getElementById('output-category-warning');
+    const entry = categoryAdvanced[selectedCategoryId];
+    if (warn) {
+      const show = !!entry && !entry.configured;
+      warn.classList.toggle('hidden', !show);
+      if (show) warn.textContent = '⚠ ' + tr('outUnconfigured');
+    }
+  }
+
+  // Load Prices automatically from Firestore for Public & Admin
+  function loadPricingFromCloud() {
+    return db.collection('settings').doc('pricing').get()
+      .then(doc => {
+        if (!doc.exists) return;
+        const data = doc.data() || {};
+
+        // (anything typed before the cloud answered is already in the session copy via the input listeners)
+        cloudCategories = extractCloudCategories(data);
+
+        PRICING_CATEGORIES.forEach(c => {
+          const cc = cloudCategories[c.id];
+          if (!cc) return;
+          delete categoryWorking[c.id];               // rebuilt from cloud + session edits
+          if (cc.advancedSettings) {
+            const entry = categoryAdvanced[c.id] || initialAdvancedFor(c.id);
+            entry.values = sanitizeAdvanced(cc.advancedSettings, entry.values);
+            entry.configured = true;
+            categoryAdvanced[c.id] = entry;
+            cacheAdvancedLocally(c.id);
+          }
+        });
+
+        advancedSettings = categoryAdvanced[selectedCategoryId].values;
+        applyWorkingToUI(selectedCategoryId);
+        populateAdvancedSettingsUI();
+        updateCategoryLabels();
+      })
+      .catch(err => {
+        console.log("Pricing loading error:", err);
+      });
+  }
+
+  // Save Prices (+ this category's allowances if configured) to Firestore (Admin Only)
+  function savePricingToCloud() {
+    if (!isAdmin) return;
+    const id = selectedCategoryId;
+
+    const payload = {
+      glassPrice: parseFloat(document.getElementById('global-glass-price').value) || 0,
+      miscPrice: parseFloat(document.getElementById('global-misc-price').value) || 0,
+      prices: {},
+      lengths: {}
+    };
+    // never persist the 0 mm placeholders of an unconfigured category as if they were real values
+    if (categoryAdvanced[id] && categoryAdvanced[id].configured) {
+      payload.advancedSettings = { ...advancedSettings };
+    }
+
+    document.querySelectorAll('.pricing-input').forEach(input => {
+      if (input.id) {
+        payload.prices[input.id] = parseFloat(input.value) || 0;
+      }
+    });
+
+    document.querySelectorAll('.unit-input[id^="length-"]').forEach(input => {
+      if (input.id) {
+        let inches = parseFloat(input.dataset.inches);
+        if (isNaN(inches)) {
+          inches = parseToInches(input.value, currentUnit);
+        }
+        if (inches > 0) {
+          payload.lengths[input.id] = inches;
+        }
+      }
+    });
+
+    // Nested merge into categories.<id> only: other categories and the legacy fields stay untouched
+    db.collection('settings').doc('pricing').set({ categories: { [id]: payload } }, { merge: true })
+      .then(() => {
+        cloudCategories[id] = mergeNormalized(cloudCategories[id] || normalizeCategoryDoc(null), normalizeCategoryDoc(payload));
+        alert("[" + getCategoryName(id) + "] ဈေးနှုန်း၊ အချောင်းအရှည်များနှင့် Formula Settings များကို Cloud ပေါ်သို့ အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။");
+      })
+      .catch(err => {
+        alert("သိမ်းဆည်းမှု မအောင်မြင်ပါ။ " + err.message);
+      });
+  }
+
+  // Session-only copy of what has been typed, kept PER category
+  function saveTemporaryPricing() {
+    if (!document.getElementById('global-glass-price')) return;
+    const temporaryData = { prices: {}, lengths: {} };
+
+    document.querySelectorAll('.pricing-input').forEach(input => {
+      // empty fields are not stored: a blank must never override a value that came from the cloud
+      if (input.id && input.value !== '') temporaryData.prices[input.id] = input.value;
+    });
+
+    document.querySelectorAll('#profiles-price-container input[id^="length-"]').forEach(input => {
+      if (input.id) {
+        let inches = parseFloat(input.dataset.inches);
+        if (isNaN(inches)) inches = parseLengthStrict(input.value, currentUnit);
+        if (inches != null && isFinite(inches) && inches > 0) temporaryData.lengths[input.id] = inches;
+      }
+    });
+
+    try { sessionStorage.setItem(tempKey(selectedCategoryId), JSON.stringify(temporaryData)); } catch (e) {}
+  }
+
+  // -------------------------------------------------------------
+  // APP CORE LOGIC
+  // -------------------------------------------------------------
+  let itemCount = 0;
+  let currentUnit = 'feet';
+  let currentLang = 'en';
+  let currentDetailName = null;
+
+  let calculatedProfileData = {};
+  let calculatedAccessoriesData = {};
+
+  const profileItemsList = ['top frame', 'top frame + fixed','btm frame', 'side frame', 'lock frame', 'hook frame', 'wheel frame', 'fixed frame', 'fixed middle frame', 'side fixed close (inner)', 'side fixed close (outer)', 'fixed click', 'meeting stile'];
+  const accItemsList = ['top cap', 'bot cap', 'wheel', 'hook lock', 'weatherstrip'];
+
+
+  const i18n = {
+    en: {
+      settings: "SETTINGS", unit: "measurement unit", kerf: "saw blade kerf",
+      lang: "language", theme: "color theme", stock: "stock bar length",
+      glassW: "glass sheet width", glassH: "glass sheet height", wsRoll: "weatherstrip roll length",
+      glassPrice: "glass sheet price (per sheet)", pricingMenu: "Pricing",
+      pricingCat: "PRICING CATEGORY", pricingBack: "back to settings",
+      pricingDesc: "Enter unit prices to automatically calculate the total estimated cost.",
+      miscPrice: "LABOR & MISC PRICE (PER SQFT)",
+      secProfilesPrice: "Aluminium Profiles (Price per bar)", secAccPrice: "Accessories (Price per pc/roll)",
+      back: "back to main", return: "return",
+      tblItem: "item", tblBar: "qty", tblCost: "cost (Ks)", grandTotal: "Grand Total", perSqft: "Price Per Sqft",
+      opti: "copy for opticutter", pdf: "print pdf",
+      clearAll: "clear all", run: "run_calculation", backReport: "back to report",
+      listTab: "Required List", diagramTab: "Cutting Diagram", windowItem: "WINDOW ITEM",
+      errFixed: "Fixed Height (Top + Bot) is equal or greater than Total Height!",
+      errEmpty: "Please enter valid dimensions and quantities.",
+      secProfiles: "Aluminium Profiles", secGlass: "Glass Sheets", secAcc: "Accessories",
+      secMisc: "Labor & Miscellaneous", totalArea: "Total Area & Misc",
+      category: "pricing category",
+      advAdminOnly: "Formula allowances can only be changed by the Admin.",
+      advUnconfiguredAdmin: "Allowances for this category are not configured yet (all set to 0). Enter the values and press Save Settings.",
+      advUnconfiguredUser: "Formula allowances for this category have not been configured by the Admin yet. Results use 0 mm deductions and are NOT reliable.",
+      outUnconfigured: "Formula allowances for this category are not configured yet - cut lengths may be wrong.",
+      noGlass: "No glass pieces to display.",
+      sheetInvalid: "Glass sheet size is missing or invalid. Enter a valid sheet width and height in Settings.",
+      piecesTooBig: "Pieces larger than the glass sheet (cannot be placed)",
+      noLayouts: "No cutting layout could be produced: none of the pieces fit on the glass sheet. Use a larger sheet size in Settings.",
+      usedWaste: "Used", wasteWord: "Waste", offcutWord: "Largest offcut", repWord: "Layout"
+    },
+    my: {
+      settings: "ဆက်တင်များ", unit: "တိုင်းတာသည့် ယူနစ်", kerf: "လွှသွားစာ အလေအလွင့် (Kerf)",
+      lang: "ဘာသာစကား", theme: "အပြင်အဆင် ဒီဇိုင်း", stock: "ကုန်ကြမ်းအချောင်းအရှည်",
+      glassW: "မှန်အချပ်ကြီး အနံ (Width)", glassH: "မှန်အချပ်ကြီး အမြင့် (Height)", wsRoll: "ရော်ဘာကြိုး အခွေအရှည်",
+      glassPrice: "မှန်တစ်ချပ်စာ ဈေးနှုန်း", pricingMenu: "ဈေးနှုန်းများ ပြင်ဆင်ရန်",
+      pricingCat: "PRICING (ဈေးနှုန်းသတ်မှတ်ရန်)", pricingBack: "ဆက်တင်သို့ ပြန်သွားမည်",
+      pricingDesc: "ကုန်ကျစရိတ် တွက်ချက်နိုင်ရန် ပစ္စည်းတစ်ခုချင်းစီ၏ ဈေးနှုန်းများကို ထည့်သွင်းပေးပါ။",
+      miscPrice: "ကော်/စကူ/လုပ်အားခ (၁ စတုရန်းပေ ဈေး)",
+      secProfilesPrice: "အလူမီနံ အချောင်းများ (တစ်ချောင်းစာ ဈေး)", secAccPrice: "Accessories များ (တစ်ခု/တစ်ခွေစာ ဈေး)",
+      back: "ပင်မစာမျက်နှာသို့", return: "ပြန်ထွက်မည်",
+      tblItem: "အမျိုးအစား", tblBar: "အရေအတွက်", tblCost: "ကျသင့်ငွေ (Ks)", grandTotal: "စုစုပေါင်း ကျသင့်ငွေ", perSqft: "၁ စတုရန်းပေ ဈေးနှုန်း",
+      opti: "OptiCutter အတွက် ကူးယူမည်", pdf: "PDF ထုတ်မည်",
+      clearAll: "အားလုံးဖျက်မည်", run: "တွက်ချက်မည်", backReport: "စာရင်းသို့ ပြန်သွားမည်",
+      listTab: "ဖြတ်ရမည့် အရွယ်အစားများ", diagramTab: "ဖြတ်ပိုင်းပုံစံ (Diagram)", windowItem: "တံခါး / ပြတင်းပေါက်",
+      errFixed: "မှန်သေအမြင့် ပေါင်းလဒ်သည် တံခါး/ပြတင်းပေါက် အမြင့်ထက် ညီနေ သို့မဟုတ် ကျော်လွန်နေပါသည်။",
+      errEmpty: "တွက်ချက်ရန် အတိုင်းအတာနှင့် အရေအတွက်များကို ပြည့်စုံစွာ ထည့်ပါ။",
+      secProfiles: "အလူမီနီယံ အချောင်းများ", secGlass: "မှန်အချပ်များ", secAcc: "Accessories ပစ္စည်းများ",
+      secMisc: "လုပ်အားခ နှင့် အထွေထွေ", totalArea: "စုစုပေါင်း အကျယ်အဝန်း (Total Sqft)",
+      category: "ဈေးနှုန်း အမျိုးအစား",
+      advAdminOnly: "Formula Allowances များကို Admin သာ ပြင်ဆင်နိုင်ပါသည်။",
+      advUnconfiguredAdmin: "ဤ category အတွက် Allowances မသတ်မှတ်ရသေးပါ (အားလုံး 0)။ တန်ဖိုးများထည့်ပြီး Save Settings နှိပ်ပါ။",
+      advUnconfiguredUser: "ဤ category အတွက် Formula Allowances ကို Admin မသတ်မှတ်ရသေးပါ။ 0 mm ဖြင့် တွက်ထားသဖြင့် မမှန်ကန်နိုင်ပါ။",
+      outUnconfigured: "ဤ category အတွက် Formula Allowances မသတ်မှတ်ရသေးသဖြင့် ဖြတ်ရမည့်အရှည်များ မမှန်နိုင်ပါ။",
+      noGlass: "ပြသရန် မှန်အပိုင်းအစ် မရှိပါ။",
+      sheetInvalid: "မှန်အချပ်ကြီး အရွယ်အစား မရှိ/မမှန်ကန်ပါ။ Settings တွင် အနံနှင့် အမြင့်ကို ထည့်ပါ။",
+      piecesTooBig: "မှန်အချပ်ကြီးထက် ကြီးနေသော အပိုင်းများ (ချထား၍မရပါ)",
+      noLayouts: "ဖြတ်ပိုင်းပုံစံ မထုတ်နိုင်ပါ - မှန်အပိုင်းအားလုံး မှန်အချပ်ကြီးထက် ကြီးနေပါသည်။ Settings တွင် ပိုကြီးသော အရွယ်ထည့်ပါ။",
+      usedWaste: "သုံးပြီး", wasteWord: "အလေအလွင့်", offcutWord: "အကြီးဆုံး ကျန်စ", repWord: "Layout"
+    }
+  };
+
+  // translated string with English fallback
+  function tr(key) {
+    const t = i18n[currentLang] || i18n.en;
+    return t[key] != null ? t[key] : i18n.en[key];
+  }
+
+  function setBackBtnText(id, text) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.innerHTML = `<span class="arrow">←</span> <span>${text}</span>`;
+    }
+  }
+
+  function initPricingInputs() {
+    const pContainer = document.getElementById('profiles-price-container');
+
+    profileItemsList.forEach(item => {
+      const idName = item.replace(/[^a-zA-Z]/g, '');
+
+      pContainer.innerHTML += `
+        <div class="input-wrapper" style="margin-bottom:12px;">
+          <label>${item.toUpperCase()}</label>
+          <div class="grid-2">
+            <input type="number" id="price-${idName}" min="0" placeholder="price" class="pricing-input">
+            <input type="text" id="length-${idName}" class="unit-input" placeholder="length" autocomplete="off" onchange="handleInchInput(this)">
+          </div>
+        </div>
+      `;
+    });
+
+    const aContainer = document.getElementById('acc-price-container');
+
+    if (aContainer) {
+      accItemsList.forEach(item => {
+        const idName = item.replace(/[^a-zA-Z]/g, '');
+
+        aContainer.innerHTML += `
+          <div class="input-wrapper" style="margin-bottom:12px;">
+            <label>${item.toUpperCase()}</label>
+            <input type="number" id="price-${idName}" min="0" placeholder="price" class="pricing-input">
+          </div>
+        `;
+      });
+    }
+
+    document.querySelectorAll('.pricing-input').forEach(input => {
+      input.addEventListener('input', saveTemporaryPricing);
+    });
+
+    document.querySelectorAll('#profiles-price-container input[id^="length-"]').forEach(input => {
+      input.addEventListener('input', saveTemporaryPricing);
+      input.addEventListener('change', saveTemporaryPricing);
+    });
+  }
+  
+  function getPrice(itemName) {
+    if (itemName === 'glass') return parseFloat(document.getElementById('global-glass-price').value) || 0;
+    const id = 'price-' + itemName.replace(/[^a-zA-Z]/g, '');
+    const el = document.getElementById(id);
+    return el ? (parseFloat(el.value) || 0) : 0;
+  }
+
+  function toggleLanguage() {
+    currentLang = document.getElementById('global-lang').value;
+    const t = i18n[currentLang];
+
+    document.getElementById('lbl-settings').innerText = t.settings;
+    const unitSel = document.getElementById('global-unit');
+    if (unitSel) { unitSel.title = t.unit; unitSel.setAttribute('aria-label', t.unit); }
+    document.getElementById('lbl-kerf').innerText = t.kerf;
+    document.getElementById('lbl-lang').innerText = t.lang;
+    document.getElementById('lbl-theme').innerText = t.theme;
+    document.getElementById('lbl-glass-w').innerText = t.glassW;
+    document.getElementById('lbl-glass-h').innerText = t.glassH;
+    document.getElementById('lbl-ws-roll').innerText = t.wsRoll;
+    
+    document.getElementById('lbl-glass-price').innerText = t.glassPrice;
+    document.getElementById('lbl-pricing-desc').innerText = t.pricingDesc;
+    document.getElementById('lbl-misc-price').innerText = t.miscPrice;
+    document.getElementById('lbl-sec-profiles-price').innerText = t.secProfilesPrice;
+    document.getElementById('lbl-sec-acc-price').innerText = t.secAccPrice;
+
+    setBackBtnText('lbl-back', t.back);
+    setBackBtnText('lbl-pricing-back', t.pricingBack);
+    setBackBtnText('lbl-adv-back', t.pricingBack);
+    setBackBtnText('lbl-return', t.return);
+    setBackBtnText('lbl-detail-back', t.backReport);
+
+    document.getElementById('lbl-tbl-item').innerText = t.tblItem;
+    document.getElementById('lbl-tbl-bar').innerText = t.tblBar;
+    document.getElementById('lbl-tbl-cost').innerText = t.tblCost;
+    
+    let gTotalEl = document.getElementById('lbl-grand-total');
+    if (gTotalEl) gTotalEl.innerText = t.grandTotal;
+
+    let perSqftEl = document.getElementById('lbl-per-sqft');
+    if (perSqftEl) perSqftEl.innerText = t.perSqft;
+
+    document.getElementById('lbl-opti').innerText = t.opti;
+    document.getElementById('lbl-pdf').innerText = t.pdf;
+    document.getElementById('lbl-clear-all').innerText = t.clearAll;
+    document.getElementById('lbl-run').innerText = t.run;
+    document.getElementById('tab-btn-text').innerText = t.listTab;
+    document.getElementById('tab-btn-visual').innerText = t.diagramTab;
+
+    document.querySelectorAll('.item-label-text').forEach(el => el.innerText = t.windowItem);
+    updateCategoryLabels();
+  }
+
+  function openSettings() {
+    document.getElementById('input-screen').classList.add('hidden');
+    document.getElementById('output-screen').classList.add('hidden');
+    document.getElementById('detail-screen').classList.add('hidden');
+    document.getElementById('pricing-screen').classList.add('hidden');
+    document.getElementById('advanced-settings-screen').classList.add('hidden');
+    document.getElementById('settings-screen').classList.remove('hidden');
+    document.getElementById('settings-toggle-btn').classList.add('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function closeSettings() {
+    document.getElementById('settings-screen').classList.add('hidden');
+    document.getElementById('input-screen').classList.remove('hidden');
+    document.getElementById('settings-toggle-btn').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function openPricingScreen() {
+    document.getElementById('settings-screen').classList.add('hidden');
+    document.getElementById('pricing-screen').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function closePricingScreen() {
+    document.getElementById('pricing-screen').classList.add('hidden');
+    document.getElementById('settings-screen').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  // -------------------------------------------------------------
+  // THEMES (appearance only; stored in localStorage, never in Firestore)
+  // -------------------------------------------------------------
+  const THEME_STORAGE_KEY = 'aluLordTheme';
+  const DEFAULT_THEME_ID = 'light';
+  const THEMES = [
+  { id: "light", name: "Light", bg: "#F2F2F7", card: "#FFFFFF", text: "#000000", accent: "#007AFF" },
+  { id: "dark", name: "Dark", bg: "#000000", card: "#1C1C1E", text: "#FFFFFF", accent: "#0A84FF" },
+  { id: "white", name: "Minimal White", bg: "#FFFFFF", card: "#F4F4F5", text: "#111111", accent: "#111111" },
+  { id: "mono-light", name: "Mono Light", bg: "#E9E9EB", card: "#FFFFFF", text: "#1A1A1A", accent: "#444444" },
+  { id: "mono-dark", name: "Mono Dark", bg: "#0D0D0D", card: "#1C1C1C", text: "#F2F2F2", accent: "#D0D0D0" },
+  { id: "oled", name: "True Black", bg: "#000000", card: "#111111", text: "#FFFFFF", accent: "#64D2FF" },
+  { id: "slate-light", name: "Slate Light", bg: "#EDF0F5", card: "#FFFFFF", text: "#1E293B", accent: "#475569" },
+  { id: "slate", name: "Slate", bg: "#0F172A", card: "#1E293B", text: "#E2E8F0", accent: "#99A8BC" },
+  { id: "graphite", name: "Graphite", bg: "#17181A", card: "#26282B", text: "#ECEDEE", accent: "#8AB4F8" },
+  { id: "charcoal", name: "Charcoal", bg: "#121212", card: "#232323", text: "#EAEAEA", accent: "#FFB74D" },
+  { id: "ocean", name: "Ocean Blue", bg: "#E8F1FF", card: "#FFFFFF", text: "#0B2447", accent: "#1A64D1" },
+  { id: "midnight", name: "Midnight Blue", bg: "#0A1530", card: "#14244A", text: "#E6EEFF", accent: "#6BA5FF" },
+  { id: "navy", name: "Navy", bg: "#0B1B33", card: "#132A4D", text: "#EAF1FB", accent: "#68B0F8" },
+  { id: "navy-light", name: "Navy Light", bg: "#E6EBF4", card: "#FFFFFF", text: "#0F2342", accent: "#1E3A8A" },
+  { id: "sky", name: "Sky Blue", bg: "#E4F5FF", card: "#FFFFFF", text: "#0C3550", accent: "#0271AB" },
+  { id: "royal", name: "Royal Blue", bg: "#0D1026", card: "#1A1F4B", text: "#E8EAFF", accent: "#8997FF" },
+  { id: "green", name: "Green", bg: "#E9F6EC", card: "#FFFFFF", text: "#11361F", accent: "#1A7A35" },
+  { id: "emerald", name: "Emerald", bg: "#04140E", card: "#0C2A1F", text: "#E4F7EE", accent: "#34D399" },
+  { id: "mint", name: "Mint", bg: "#E3F8F0", card: "#FFFFFF", text: "#0F3B2E", accent: "#0C7B5B" },
+  { id: "forest", name: "Forest", bg: "#0E1A12", card: "#19291E", text: "#E7F0E9", accent: "#7BC47F" },
+  { id: "olive", name: "Olive", bg: "#EFF0E1", card: "#FAFAF0", text: "#2D3016", accent: "#616E1C" },
+  { id: "lavender", name: "Lavender", bg: "#EFE9FB", card: "#FFFFFF", text: "#2A1B4D", accent: "#7649D0" },
+  { id: "violet", name: "Violet Night", bg: "#140B26", card: "#231443", text: "#EFE8FF", accent: "#A78BFA" },
+  { id: "amethyst", name: "Amethyst", bg: "#F4EBFA", card: "#FFFFFF", text: "#3B1355", accent: "#9333EA" },
+  { id: "grape", name: "Grape", bg: "#1A0A1F", card: "#2B1233", text: "#F5E8FA", accent: "#D17BF0" },
+  { id: "indigo", name: "Indigo", bg: "#ECEEFF", card: "#FFFFFF", text: "#1E1B4B", accent: "#4F46E5" },
+  { id: "rose", name: "Rose", bg: "#FFEEF1", card: "#FFFFFF", text: "#4A1020", accent: "#CB1A41" },
+  { id: "pink", name: "Pink", bg: "#FCE8F4", card: "#FFFFFF", text: "#4A1238", accent: "#C6236B" },
+  { id: "raspberry", name: "Raspberry", bg: "#1F0A14", card: "#34121F", text: "#FCE8EF", accent: "#FF6B9A" },
+  { id: "crimson", name: "Crimson", bg: "#FDECEC", card: "#FFFFFF", text: "#450A0A", accent: "#C81E1E" },
+  { id: "ruby", name: "Ruby", bg: "#1A0808", card: "#2E1010", text: "#FDEAEA", accent: "#FF6B6B" },
+  { id: "orange", name: "Orange", bg: "#FFF1E5", card: "#FFFFFF", text: "#431C05", accent: "#B14809" },
+  { id: "sunset", name: "Sunset", bg: "#1C0F08", card: "#321A0E", text: "#FFEDE0", accent: "#FF8A3D" },
+  { id: "amber", name: "Amber", bg: "#FFF6DC", card: "#FFFFFF", text: "#3D2A00", accent: "#A25605" },
+  { id: "gold", name: "Gold", bg: "#1A1405", card: "#2D2308", text: "#FFF6D6", accent: "#FBBF24" },
+  { id: "teal", name: "Teal", bg: "#E3F5F5", card: "#FFFFFF", text: "#0B3A3C", accent: "#0D7779" },
+  { id: "teal-dark", name: "Deep Teal", bg: "#061A1B", card: "#0E2F31", text: "#E1F6F6", accent: "#2DD4BF" },
+  { id: "cyan", name: "Cyan", bg: "#E2F8FC", card: "#FFFFFF", text: "#083344", accent: "#077691" },
+  { id: "cyan-night", name: "Cyan Night", bg: "#04161C", card: "#0A2B35", text: "#DFF7FC", accent: "#22D3EE" },
+  { id: "beige", name: "Beige", bg: "#F3ECE1", card: "#FBF8F3", text: "#3A2E22", accent: "#905829" },
+  { id: "cream", name: "Cream", bg: "#FFFAEC", card: "#FFFFFF", text: "#3B3326", accent: "#956319" },
+  { id: "cocoa", name: "Cocoa", bg: "#1E1610", card: "#33261C", text: "#F4E8DC", accent: "#D9A066" },
+  { id: "coffee", name: "Coffee", bg: "#17100C", card: "#2A1E17", text: "#EFE3D8", accent: "#C8956D" },
+  { id: "nord", name: "Nord", bg: "#2E3440", card: "#3B4252", text: "#ECEFF4", accent: "#A3CEDB" },
+  { id: "solarized", name: "Solarized", bg: "#FDF6E3", card: "#F5EFDC", text: "#073642", accent: "#1B669A" },
+  { id: "dracula", name: "Dracula", bg: "#282A36", card: "#343746", text: "#F8F8F2", accent: "#CEB0FB" }
+  ];
+
+  function isValidTheme(id) {
+    return THEMES.some(t => t.id === id);
+  }
+
+  function getSavedTheme() {
+    try {
+      const id = localStorage.getItem(THEME_STORAGE_KEY);
+      if (id && isValidTheme(id)) return id;
+    } catch (e) {}
+    return DEFAULT_THEME_ID;
+  }
+
+  function applyTheme(id) {
+    if (!isValidTheme(id)) id = DEFAULT_THEME_ID;
+    document.body.setAttribute('data-theme', id);
+
+    document.querySelectorAll('#theme-grid .theme-tile').forEach(tile => {
+      const on = tile.dataset.themeId === id;
+      tile.classList.toggle('active', on);
+      tile.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const t = THEMES.find(x => x.id === id);
+    if (meta && t) meta.setAttribute('content', t.bg);
+  }
+
+  // Called when a theme tile is chosen
+  function toggleTheme(id) {
+    if (!isValidTheme(id)) return;
+    applyTheme(id);
+    try { localStorage.setItem(THEME_STORAGE_KEY, id); } catch (e) {}
+  }
+
+  function initThemeGrid() {
+    const grid = document.getElementById('theme-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    THEMES.forEach(t => {
+      const tile = document.createElement('button');
+      tile.type = 'button';
+      tile.className = 'theme-tile';
+      // NOTE: must NOT be data-theme (the CSS themes target [data-theme=...] and would re-theme the tile itself)
+      tile.dataset.themeId = t.id;
+      tile.title = t.name;
+      tile.setAttribute('role', 'radio');
+      tile.setAttribute('aria-checked', 'false');
+
+      const preview = document.createElement('span');
+      preview.className = 'theme-preview';
+      preview.style.background = t.bg;
+      preview.innerHTML =
+        '<i style="left:5px;top:5px;right:5px;bottom:5px;border-radius:5px;background:' + t.card + '"></i>' +
+        '<i style="left:11px;top:11px;width:40%;height:4px;border-radius:2px;opacity:.85;background:' + t.text + '"></i>' +
+        '<i style="left:11px;bottom:10px;width:46%;height:8px;border-radius:4px;background:' + t.accent + '"></i>';
+
+      const name = document.createElement('span');
+      name.className = 'theme-name';
+      name.textContent = t.name;
+
+      const check = document.createElement('span');
+      check.className = 'theme-check';
+      check.textContent = '✓';
+      check.setAttribute('aria-hidden', 'true');
+
+      tile.appendChild(preview);
+      tile.appendChild(name);
+      tile.appendChild(check);
+      grid.appendChild(tile);
+    });
+
+    // one delegated listener (renders once, so no duplicate listeners)
+    grid.addEventListener('click', e => {
+      const tile = e.target.closest('.theme-tile');
+      if (tile) toggleTheme(tile.dataset.themeId);
+    });
+  }
+
+  function formatFeetInches(totalInches) {
+    if (totalInches == null || isNaN(totalInches)) return '';
+    totalInches = Math.max(0, Number(totalInches));
+
+    let sixteenths = Math.round(totalInches * 16);
+
+    // Sub-inch values that do not land on a 1/16" mark are shown as decimal inches
+    // (3 mm -> 0.118") instead of being rounded away (0.5 mm used to display as an empty string).
+    if (totalInches > 0 && totalInches < 1 && Math.abs(sixteenths / 16 - totalInches) > 1e-9) {
+      return (Math.round(totalInches * 1000) / 1000) + '"';
+    }
+
+    let feet = Math.floor(sixteenths / 192);
+    let rem16 = sixteenths - feet * 192;
+    let wholeInches = Math.floor(rem16 / 16);
+    let frac16 = rem16 % 16;
+
+    const fracMap = {
+      1:'1/16', 2:'1/8', 3:'3/16', 4:'1/4',
+      5:'5/16', 6:'3/8', 7:'7/16', 8:'1/2',
+      9:'9/16', 10:'5/8', 11:'11/16', 12:'3/4',
+      13:'13/16', 14:'7/8', 15:'15/16'
+    };
+
+    let out = '';
+    if (feet > 0) out += feet + "'";
+    if (wholeInches > 0 || frac16 > 0) {
+      if (out) out += '-';
+      out += wholeInches;
+      if (frac16 > 0) out += ' ' + fracMap[frac16];
+      out += '"';
+    }
+    return out || (totalInches === 0 ? '0"' : '');
+  }
+
+  function parseFraction(str) {
+    str = String(str || '').trim();
+    if (!str) return 0;
+    if (str.includes('/')) {
+      const p = str.split('/');
+      const a = parseFloat(p[0]), b = parseFloat(p[1]);
+      if (isFinite(a) && isFinite(b) && b !== 0) return a / b;
+      return 0;
+    }
+    const n = parseFloat(str);
+    return isFinite(n) ? n : 0;
+  }
+
+  // Strict parser: returns inches, or null when the text is empty / not a number.
+  // Text that carries its own unit marker is always read in THAT unit ("3 mm" is mm, 7'-1" is ft/in),
+  // so a value is never re-interpreted in a different unit than the one it was written in.
+  function parseLengthStrict(valStr, unit) {
+    if (unit === undefined) unit = currentUnit;
+    if (valStr == null) return null;
+    let s = String(valStr).trim().toLowerCase().replace(/,/g, '');
+    if (s === '' || s === '-') return null;
+
+    const hasMm = /mm\s*$/.test(s);
+    const hasFtIn = /['"]/.test(s);
+    const asMm = hasMm ? true : (hasFtIn ? false : unit === 'mm');
+
+    if (asMm) {
+      const n = parseFloat(s.replace(/mm/g, '').trim());
+      return isFinite(n) ? Math.max(0, n) / 25.4 : null;
+    }
+
+    let total = 0;
+    let found = false;
+    const feetMatch = s.match(/^\s*(-?\d+(?:\.\d+)?)\s*'/);
+    if (feetMatch) {
+      total += parseFloat(feetMatch[1]) * 12;
+      found = true;
+      s = s.slice(feetMatch[0].length).trim();
+    }
+
+    s = s.replace(/"/g, '').replace(/-/g, ' ').trim();
+    if (s) {
+      const parts = s.split(/\s+/);
+      const first = parts[0].includes('/') ? parseFraction(parts[0]) : parseFloat(parts[0]);
+      if (isFinite(first)) { total += first; found = true; }
+      else if (!found) return null;
+      if (parts[1]) total += parseFraction(parts[1]);
+    }
+    return found ? Math.max(0, total) : null;
+  }
+
+  // Backwards-compatible wrapper (unparseable text -> 0, as before)
+  function parseToInches(valStr, unit = currentUnit) {
+    const v = parseLengthStrict(valStr, unit);
+    return v == null ? 0 : v;
+  }
+
+  function formatLength(inches, unit) {
+    if (inches === 0) return '0';
+    return unit === 'mm'
+      ? (Math.round(inches * 25.4 * 100) / 100) + ' mm'
+      : formatFeetInches(inches);
+  }
+
+  function displayLength(inches) {
+    return formatLength(inches, currentUnit);
+  }
+
+  // Keep the stored value (dataset.inches) in step with what the user is typing, WITHOUT
+  // reformatting the text. Runs on every keystroke, so a later unit switch can never use a stale value.
+  function syncUnitInputFromText(field) {
+    const inches = parseLengthStrict(field.value, currentUnit);
+    if (inches == null) delete field.dataset.inches;
+    else field.dataset.inches = String(inches);
+  }
+
+  function handleInchInput(input) {
+    if (!input.value || input.value.trim() === '') {
+      delete input.dataset.inches;
+      return;
+    }
+    const inches = parseLengthStrict(input.value, currentUnit);
+    if (inches == null) {
+      input.value = '';
+      delete input.dataset.inches;
+      return;
+    }
+    input.dataset.inches = String(inches);
+    input.value = displayLength(inches);
+  }
+
+  function convertAllUnits() {
+    const sel = document.getElementById('global-unit');
+    const newUnit = sel.value;
+    if (newUnit !== 'feet' && newUnit !== 'mm') { sel.value = currentUnit; return; }
+    if (newUnit === currentUnit) return;
+
+    document.querySelectorAll('.unit-input').forEach(field => {
+      const raw = field.value.trim();
+      if (raw === '' || raw === '-') {          // empty stays empty (never becomes 0)
+        field.value = '';
+        delete field.dataset.inches;
+        return;
+      }
+
+      // The stored inch value is the truth. Only if it is missing do we parse the text,
+      // and then in the unit the text was displayed in (currentUnit is still the OLD unit here).
+      let inches = field.dataset.inches !== undefined ? parseFloat(field.dataset.inches) : NaN;
+      if (!isFinite(inches)) inches = parseLengthStrict(raw, currentUnit);
+
+      if (inches == null || !isFinite(inches)) {
+        field.value = '';
+        delete field.dataset.inches;
+        return;
+      }
+      field.dataset.inches = String(inches);
+      field.value = formatLength(inches, newUnit);   // a real 0 (e.g. kerf) is kept as 0
+    });
+
+    currentUnit = newUnit;
+    refreshDetailForUnitChange();
+  }
+
+  // If the selector and the unit the fields are displayed in ever disagree
+  // (e.g. the browser restored the <select> after back-navigation), bring the fields in line.
+  function reconcileUnitSelector() {
+    const sel = document.getElementById('global-unit');
+    if (sel && sel.value !== currentUnit) convertAllUnits();
+  }
+
+  function initUnitSystem() {
+    const sel = document.getElementById('global-unit');
+    if (sel) sel.value = currentUnit;           // never trust a browser-restored selection
+
+    // Fields that have text but no stored value yet (defaults, or text restored by the browser)
+    document.querySelectorAll('.unit-input').forEach(field => {
+      if (field.dataset.inches !== undefined) return;
+      const raw = field.value.trim();
+      if (!raw) return;
+      const inches = parseLengthStrict(raw, currentUnit);
+      if (inches == null) { field.value = ''; return; }
+      field.dataset.inches = String(inches);
+      field.value = displayLength(inches);
+    });
+
+    // capture phase: runs before any other input listener so they always see the fresh stored value
+    document.addEventListener('input', e => {
+      if (e.target && e.target.classList && e.target.classList.contains('unit-input')) syncUnitInputFromText(e.target);
+    }, true);
+    document.addEventListener('focusin', e => {
+      if (e.target && e.target.classList && e.target.classList.contains('unit-input')) reconcileUnitSelector();
+    }, true);
+    window.addEventListener('pageshow', e => { if (e.persisted) reconcileUnitSelector(); });
+  }
+
+  // The unit selector lives in the header (visible on every screen), so if the
+  // item-detail screen is open, redraw it from the stored inch values in the new unit.
+  function refreshDetailForUnitChange() {
+    const detail = document.getElementById('detail-screen');
+    if (!currentDetailName || !detail || detail.classList.contains('hidden')) return;
+    if (!calculatedProfileData || !calculatedAccessoriesData) return;
+    const y = window.scrollY;
+    openItemDetail(currentDetailName, true);   // true = keep the current tab / scroll position
+    window.scrollTo(0, y);
+  }
+
+  function getKerfInches() {
+    const input = document.getElementById('global-kerf');
+    let inches = parseFloat(input.dataset.inches);
+    if (isNaN(inches)) {
+      inches = parseToInches(input.value || 0, currentUnit);
+    }
+    return isNaN(inches) ? 0 : inches;
+  }
+
+  function addItem() {
+    const itemList = document.getElementById('item-list');
+    const itemId = `item-${itemCount}`;
+    const newItem = document.createElement('div');
+    newItem.className = 'card';
+    newItem.id = itemId;
+    newItem.innerHTML = `
+      <div class="card-header">
+        <span class="item-label item-label-text">${i18n[currentLang].windowItem}</span>
+        <button class="card-delete-btn" onclick="deleteItem('${itemId}')">✕</button>
+      </div>
+      <div class="grid-3">
+        <div class="input-wrapper"><label>h</label><input type="text" class="door-h unit-input" placeholder="-" autocomplete="off" onchange="handleInchInput(this)"></div>
+        <div class="input-wrapper"><label>w</label><input type="text" class="door-w unit-input" placeholder="-" autocomplete="off" onchange="handleInchInput(this)"></div>
+        <div class="input-wrapper"><label>qty</label><input type="number" class="door-qty" placeholder="-"></div>
+      </div>
+      <div class="input-wrapper" style="margin-top: 10px;">
+        <label>slide type</label>
+        <select class="slide-type">
+          <option value="2">2-slide</option>
+          <option value="4">4-slide</option>
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="input-wrapper"><label>top fixed</label><input type="text" class="top-fixed unit-input" placeholder="-" autocomplete="off" onchange="handleInchInput(this)"></div>
+        <div class="input-wrapper"><label>bot fixed</label><input type="text" class="bot-fixed unit-input" placeholder="-" autocomplete="off" onchange="handleInchInput(this)"></div>
+      </div>
+      <div class="error-msg">${i18n[currentLang].errFixed}</div>
+    `;
+    itemList.appendChild(newItem);
+    itemCount++;
+  }
+
+  function deleteItem(id) {
+    const element = document.getElementById(id);
+    if (element) element.remove();
+  }
+
+  function clearAll() {
+    document.getElementById('item-list').innerHTML = '';
+    itemCount = 0;
+    addItem();
+  }
+
+  function showInput() {
+    document.getElementById('input-screen').classList.remove('hidden');
+    document.getElementById('output-screen').classList.add('hidden');
+    document.getElementById('detail-screen').classList.add('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function showOutput() {
+    document.getElementById('detail-screen').classList.add('hidden');
+    document.getElementById('output-screen').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function getProfileLength(itemName) {
+    const id = 'length-' + itemName.replace(/[^a-zA-Z]/g, '');
+    const el = document.getElementById(id);
+
+    if (!el) return 240;
+
+    let inches = parseFloat(el.dataset.inches);
+
+    if (isNaN(inches)) {
+      inches = parseToInches(el.value, currentUnit);
+    }
+
+    return inches > 0 ? inches : 240;
+  }
+
+  function calculate1DStockBars(cutLengths, kerf, barLength) {
+    if (!cutLengths || cutLengths.length === 0) {
+      return { barCount: 0, bins: [], costingQty: 0 };
+    }
+
+    const EPS = 1e-9;
+    const cuts = cutLengths
+      .map(v => Number(v))
+      .filter(v => Number.isFinite(v) && v > 0);
+
+    if (cuts.length === 0) {
+      return { barCount: 0, bins: [], costingQty: 0 };
+    }
+
+    const effective = v => v + kerf;
+    const groupsMap = new Map();
+
+    for (const length of cuts) {
+      const key = Math.round(length * 1000000) / 1000000;
+      if (!groupsMap.has(key)) {
+        groupsMap.set(key, 0);
+      }
+      groupsMap.set(key, groupsMap.get(key) + 1);
+    }
+
+    const groups = [...groupsMap.entries()]
+      .map(([length, count]) => ({
+        length: Number(length),
+        count: count,
+        effective: effective(Number(length))
+      }))
+      .sort((a, b) => b.effective - a.effective);
+
+    const oversizedBins = [];
+    const normalGroups = [];
+
+    for (const g of groups) {
+      if (g.effective > barLength + EPS) {
+        for (let i = 0; i < g.count; i++) {
+          oversizedBins.push({
+            cuts: [g.length],
+            rem: 0,
+            oversized: true
+          });
+        }
+      } else {
+        normalGroups.push(g);
+      }
+    }
+
+    if (normalGroups.length === 0) {
+      return {
+        barCount: oversizedBins.length,
+        bins: oversizedBins,
+        costingQty: oversizedBins.length
+      };
+    }
+
+    const distinctCount = normalGroups.length;
+
+    function heuristicPack() {
+      const expanded = [];
+      for (const g of normalGroups) {
+        for (let i = 0; i < g.count; i++) {
+          expanded.push(g.length);
+        }
+      }
+
+      const orders = [];
+      orders.push([...expanded].sort((a, b) => b - a));
+      orders.push([...expanded].sort((a, b) => a - b));
+
+      {
+        const s = [...expanded].sort((a, b) => b - a);
+        const alt = [];
+        let left = 0;
+        let right = s.length - 1;
+        while (left <= right) {
+          alt.push(s[left++]);
+          if (left <= right) alt.push(s[right--]);
+        }
+        orders.push(alt);
+      }
+
+      let best = null;
+
+      function pack(order, mode) {
+        const bins = [];
+        for (const length of order) {
+          const need = effective(length);
+          let selected = -1;
+          for (let i = 0; i < bins.length; i++) {
+            if (bins[i].rem + EPS >= need) {
+              if (mode === "best") {
+                if (selected === -1 || bins[i].rem - need < bins[selected].rem - need) {
+                  selected = i;
+                }
+              } else {
+                selected = i;
+                break;
+              }
+            }
+          }
+
+          if (selected === -1) {
+            bins.push({ cuts: [length], rem: barLength - need });
+          } else {
+            bins[selected].cuts.push(length);
+            bins[selected].rem -= need;
+          }
+        }
+        return bins;
+      }
+
+      for (const order of orders) {
+        for (const mode of ["first", "best"]) {
+          const bins = pack(order, mode);
+          if (!best || bins.length < best.length || (bins.length === best.length && bins.reduce((a, b) => a + b.rem, 0) < best.reduce((a, b) => a + b.rem, 0))) {
+            best = bins;
+          }
+        }
+      }
+      return best || [];
+    }
+
+    function generatePatterns() {
+      const patterns = [];
+      const quantities = new Array(normalGroups.length).fill(0);
+
+      function generate(index, usedLength) {
+        if (index === normalGroups.length) {
+          if (usedLength > EPS) {
+            patterns.push({ counts: quantities.slice(), used: usedLength });
+          }
+          return;
+        }
+
+        const g = normalGroups[index];
+        const maxByLength = Math.floor((barLength - usedLength + EPS) / g.effective);
+        const maxQty = Math.min(g.count, Math.max(0, maxByLength));
+
+        for (let q = 0; q <= maxQty; q++) {
+          quantities[index] = q;
+          generate(index + 1, usedLength + q * g.effective);
+        }
+        quantities[index] = 0;
+      }
+
+      generate(0, 0);
+
+      const seen = new Set();
+      const unique = [];
+      for (const p of patterns) {
+        const key = p.counts.join(",");
+        if (!seen.has(key)) {
+          seen.add(key);
+          unique.push(p);
+        }
+      }
+      return unique;
+    }
+
+    function exactSolve() {
+      if (distinctCount > 6) return null;
+      const patterns = generatePatterns();
+      if (patterns.length === 0 || patterns.length > 5000) return null;
+
+      const byType = normalGroups.map(() => []);
+      patterns.forEach((pattern, patternIndex) => {
+        pattern.counts.forEach((qty, typeIndex) => {
+          if (qty > 0) byType[typeIndex].push(patternIndex);
+        });
+      });
+
+      for (const list of byType) {
+        list.sort((a, b) => patterns[b].used - patterns[a].used);
+      }
+
+      const target = normalGroups.map(g => g.count);
+      const totalRequired = normalGroups.reduce((sum, g) => sum + g.count * g.effective, 0);
+      const lowerBound = Math.max(1, Math.ceil((totalRequired - EPS) / barLength));
+      const memo = new Map();
+      let searchNodes = 0;
+
+      function search(rem, barsLeft) {
+        searchNodes++;
+        if (searchNodes > 250000) return null;
+
+        let remainingPieces = 0, remainingLength = 0;
+        for (let i = 0; i < rem.length; i++) {
+          remainingPieces += rem[i];
+          remainingLength += rem[i] * normalGroups[i].effective;
+        }
+
+        if (remainingPieces === 0) return [];
+        if (barsLeft <= 0 || remainingLength > barsLeft * barLength + EPS) return null;
+
+        if (Math.ceil((remainingLength - EPS) / barLength) > barsLeft) return null;
+
+        const key = rem.join(",") + "|" + barsLeft;
+        if (memo.has(key)) return null;
+
+        let selectedType = -1, selectedCandidates = null;
+        for (let i = 0; i < rem.length; i++) {
+          if (rem[i] <= 0) continue;
+          const candidates = [];
+          for (const patternIndex of byType[i]) {
+            const pattern = patterns[patternIndex];
+            let fits = true;
+            for (let j = 0; j < rem.length; j++) {
+              if (pattern.counts[j] > rem[j]) { fits = false; break; }
+            }
+            if (fits) candidates.push(patternIndex);
+          }
+
+          if (candidates.length === 0) { memo.set(key, true); return null; }
+          if (selectedCandidates === null || candidates.length < selectedCandidates.length) {
+            selectedType = i;
+            selectedCandidates = candidates;
+          }
+        }
+
+        selectedCandidates.sort((a, b) => patterns[b].used - patterns[a].used);
+
+        for (const patternIndex of selectedCandidates) {
+          const pattern = patterns[patternIndex];
+          const nextRem = rem.map((value, i) => value - pattern.counts[i]);
+          const result = search(nextRem, barsLeft - 1);
+          if (result !== null) return [patternIndex, ...result];
+        }
+
+        memo.set(key, true);
+        return null;
+      }
+
+      for (let barCount = lowerBound; barCount <= lowerBound + 10; barCount++) {
+        memo.clear();
+        searchNodes = 0;
+        const solution = search(target, barCount);
+        if (solution !== null) {
+          const bins = [];
+          for (const patternIndex of solution) {
+            const pattern = patterns[patternIndex];
+            const bin = { cuts: [], rem: barLength - pattern.used };
+            for (let i = 0; i < normalGroups.length; i++) {
+              for (let q = 0; q < pattern.counts[i]; q++) bin.cuts.push(normalGroups[i].length);
+            }
+            bin.cuts.sort((a, b) => b - a);
+            bins.push(bin);
+          }
+          return bins;
+        }
+      }
+      return null;
+    }
+
+    let bins = exactSolve() || heuristicPack();
+    bins = [...bins, ...oversizedBins];
+
+    bins.sort((a, b) => {
+      if (a.oversized) return -1;
+      if (b.oversized) return 1;
+      return (barLength - b.rem) - (barLength - a.rem);
+    });
+
+    let costingQty = 0;
+    if (bins.length > 0) {
+      const fullBars = bins.length - 1;
+      const lastBin = bins[bins.length - 1];
+      let usedInches = lastBin.oversized ? barLength : (barLength - lastBin.rem);
+      const usedFt = usedInches / 12;
+      let fraction = 0;
+
+      if (usedFt > 0 && usedFt <= 1) fraction = 0.05;
+      else if (usedFt > 1 && usedFt <= 2) fraction = 0.1;
+      else if (usedFt > 2 && usedFt <= 3) fraction = 0.1666;
+      else if (usedFt > 3 && usedFt <= 4) fraction = 0.2;
+      else if (usedFt > 4 && usedFt <= 5) fraction = 0.25;
+      else if (usedFt > 5 && usedFt <= 6.5) fraction = 0.333;
+      else if (usedFt > 6.5 && usedFt <= 10) fraction = 0.5;
+      else if (usedFt > 10 && usedFt <= 13) fraction = 0.666;
+      else if (usedFt > 13) fraction = 1;
+
+      costingQty = Math.round((fullBars + fraction) * 1000) / 1000;
+    }
+
+    return { barCount: bins.length, bins: bins, costingQty: costingQty };
+  }
+
+  // opts.silent = true suppresses the oversize pop-up (used when only redrawing the detail screen);
+  // the result also reports `oversized` pieces and `invalid` (non-positive size) pieces that were skipped.
+  function calculateGlassSheets(glassPieces, sheetW, sheetH, opts) {
+    const silent = !!(opts && opts.silent);
+    if (!Array.isArray(glassPieces) || glassPieces.length === 0 || !(sheetW > 0) || !(sheetH > 0)) {
+      return { sheetCount: 0, layouts: [], costingQty: 0, oversized: [], invalid: 0 };
+    }
+
+    const EPS = 1e-7;
+    const oversizedList = [];
+    const oversizedPieces = [];
+    let invalidCount = 0;
+    const validPieces = [];
+
+    glassPieces.forEach((p, index) => {
+      const w = Number(p.w), h = Number(p.h);
+      if (!(w > 0) || !(h > 0) || !Number.isFinite(w) || !Number.isFinite(h)) { invalidCount++; return; }
+      if (!((w <= sheetW + EPS && h <= sheetH + EPS) || (h <= sheetW + EPS && w <= sheetH + EPS))) {
+        oversizedList.push(`${displayLength(w)} x ${displayLength(h)}`);
+        oversizedPieces.push({ w, h, sourceIndex: index });
+      } else {
+        validPieces.push({ w, h, area: w * h, label: `${displayLength(w)} x ${displayLength(h)}`, sourceIndex: index });
+      }
+    });
+
+    if (oversizedList.length && !silent) {
+      alert(`⚠️ Oversized Glass Warning:\nအောက်ပါ မှန်စများသည် Stock Sheet (${displayLength(sheetW)} x ${displayLength(sheetH)}) ထက် ကြီးနေပါသည် -\n\n` + [...new Set(oversizedList)].join('\n'));
+    }
+    if (!validPieces.length) return { sheetCount: 0, layouts: [], costingQty: 0, oversized: oversizedPieces, invalid: invalidCount };
+
+    function pack(order, rule, preferWideStart) {
+      const sheets = [];
+
+      function scoreSpace(space, w, h) {
+        const dw = space.w - w, dh = space.h - h;
+        if (dw < -EPS || dh < -EPS) return null;
+        if (rule === 'area') return space.w * space.h - w * h;
+        if (rule === 'long') return Math.max(dw, dh);
+        if (rule === 'short') return Math.min(dw, dh);
+        if (rule === 'bottom') return space.y + h;
+        return Math.min(dw, dh) * 100000 + Math.max(dw, dh);
+      }
+
+      function splitFreeSpaces(sheet, used) {
+        const next = [];
+        for (const f of sheet.freeSpaces) {
+          if (used.x >= f.x + f.w - EPS || used.x + used.w <= f.x + EPS || used.y >= f.y + f.h - EPS || used.y + used.h <= f.y + EPS) {
+            next.push(f);
+            continue;
+          }
+          if (used.x > f.x + EPS) next.push({ x: f.x, y: f.y, w: used.x - f.x, h: f.h });
+          if (used.x + used.w < f.x + f.w - EPS) next.push({ x: used.x + used.w, y: f.y, w: f.x + f.w - used.x - used.w, h: f.h });
+          if (used.y > f.y + EPS) next.push({ x: f.x, y: f.y, w: f.w, h: used.y - f.y });
+          if (used.y + used.h < f.y + f.h - EPS) next.push({ x: f.x, y: used.y + used.h, w: f.w, h: f.y + f.h - used.y - used.h });
+        }
+        const clean = next.filter(f => f.w > EPS && f.h > EPS);
+        sheet.freeSpaces = clean.filter((a, i) => !clean.some((b, j) =>
+          i !== j && a.x >= b.x - EPS && a.y >= b.y - EPS && a.x + a.w <= b.x + b.w + EPS && a.y + a.h <= b.y + b.h + EPS));
+      }
+
+      for (const item of order) {
+        let best = null;
+        for (let si = 0; si < sheets.length; si++) {
+          const sh = sheets[si];
+          for (const space of sh.freeSpaces) {
+            for (const rotated of [false, true]) {
+              if (rotated && Math.abs(item.w - item.h) < EPS) continue;
+              const w = rotated ? item.h : item.w;
+              const h = rotated ? item.w : item.h;
+              const sc = scoreSpace(space, w, h);
+              if (sc === null) continue;
+              const candidate = { si, space, w, h, rotated, sc };
+              if (!best || sc < best.sc - EPS || (Math.abs(sc - best.sc) <= EPS && (space.y < best.space.y || (space.y === best.space.y && space.x < best.space.x)))) best = candidate;
+            }
+          }
+        }
+
+        if (!best) {
+          const sh = { pieces: [], freeSpaces: [{ x: 0, y: 0, w: sheetW, h: sheetH }] };
+          sheets.push(sh);
+          const space = sh.freeSpaces[0];
+          let options = [
+            { w: item.w, h: item.h, rotated: false },
+            { w: item.h, h: item.w, rotated: true }
+          ].filter(o => o.w <= sheetW + EPS && o.h <= sheetH + EPS);
+
+          options.sort((a, b) => {
+            if (preferWideStart) {
+              const widthFitA = Math.abs(sheetW - a.w);
+              const widthFitB = Math.abs(sheetW - b.w);
+              if (Math.abs(widthFitA - widthFitB) > EPS) return widthFitA - widthFitB;
+            }
+            return (sheetW * sheetH - a.w * a.h) - (sheetW * sheetH - b.w * b.h);
+          });
+          const chosen = options[0];
+          if (!chosen) continue;
+          best = { si: sheets.length - 1, space, ...chosen };
+        }
+
+        const sh = sheets[best.si];
+        const used = { x: best.space.x, y: best.space.y, w: best.w, h: best.h };
+        sh.pieces.push({ ...item, x: used.x, y: used.y, placedW: used.w, placedH: used.h, rotated: !!best.rotated });
+        splitFreeSpaces(sh, used);
+      }
+      return sheets;
+    }
+
+    const sorters = [
+      (a,b) => b.area-a.area,
+      (a,b) => Math.max(b.w,b.h)-Math.max(a.w,a.h),
+      (a,b) => Math.min(b.w,b.h)-Math.min(a.w,a.h),
+      (a,b) => b.w-a.w || b.h-a.h,
+      (a,b) => b.h-a.h || b.w-a.w,
+      (a,b) => (b.w+b.h)-(a.w+a.h),
+      (a,b) => (b.area/a.area)-1
+    ];
+    let bestSheets = null, bestScore = null;
+    const tries = Math.min(100, Math.max(35, validPieces.length > 150 ? 55 : 80));
+
+    for (let run = 0; run < tries; run++) {
+      const sorter = sorters[run % sorters.length];
+      let order = validPieces.slice().sort(sorter);
+      if (run % 2 === 1) order.reverse();
+      if (run >= sorters.length * 2) {
+        let seed = run * 7919 + validPieces.length * 104729;
+        const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+        for (let i = order.length - 1; i > 0; i--) {
+          const j = Math.floor(rand() * (i + 1));
+          [order[i], order[j]] = [order[j], order[i]];
+        }
+      }
+      const result = pack(order, ['short','area','long','bottom'][run % 4], run % 2 === 1);
+      const wasteShape = result.reduce((sum, sh) => {
+        const used = sh.pieces.reduce((a,p) => a + p.area, 0);
+        const largestFree = sh.freeSpaces.reduce((m,f) => Math.max(m, f.w*f.h), 0);
+        return sum + (sheetW * sheetH - used - largestFree) + sh.freeSpaces.length * 0.001;
+      }, 0);
+      const score = [result.length, wasteShape];
+      if (!bestScore || score[0] < bestScore[0] || (score[0] === bestScore[0] && score[1] < bestScore[1] - EPS)) {
+        bestSheets = result;
+        bestScore = score;
+      }
+    }
+
+    const rawSheets = bestSheets || [];
+    const layouts = [];
+    rawSheets.forEach(sheet => {
+      const layoutSig = JSON.stringify(sheet.pieces
+        .map(p => `${p.x.toFixed(3)},${p.y.toFixed(3)},${p.placedW.toFixed(3)},${p.placedH.toFixed(3)}`)
+        .sort());
+      const existing = layouts.find(l => l.sig === layoutSig);
+      if (existing) existing.repetition++;
+      else layouts.push({ sig: layoutSig, repetition: 1, sheet });
+    });
+
+    let costingQty = 0;
+    if (rawSheets.length) {
+      const fullSheets = rawSheets.length - 1;
+      const lastSheet = rawSheets[rawSheets.length - 1];
+      const usedArea = lastSheet.pieces.reduce((sum, p) => sum + p.area, 0);
+      const sheetArea = sheetW * sheetH;
+      const ratio = sheetArea > 0 ? usedArea / sheetArea : 0;
+      costingQty = fullSheets + (ratio <= 0.5 ? 0.5 : 1);
+    }
+    return { sheetCount: rawSheets.length, layouts, costingQty, oversized: oversizedPieces, invalid: invalidCount };
+  }
+
+  function calculateCutList() {
+    reconcileUnitSelector();
+    const items = document.querySelectorAll('#item-list .card');
+    const kerf = getKerfInches();
+
+    const glassWInput = document.getElementById('global-glass-w');
+    let glassW = parseFloat(glassWInput.dataset.inches) || parseToInches(glassWInput.value, currentUnit);
+
+    const glassHInput = document.getElementById('global-glass-h');
+    let glassH = parseFloat(glassHInput.dataset.inches) || parseToInches(glassHInput.value, currentUnit);
+
+    const wsRollInput = document.getElementById('global-ws-roll');
+    let wsRollInches = parseFloat(wsRollInput.dataset.inches) || parseToInches(wsRollInput.value, currentUnit);
+    let wsRollFt = wsRollInches > 0 ? (wsRollInches / 12) : 150;
+
+    let hasValidationError = false;
+    let validItemFound = false;
+    let totalGrandCost = 0;
+    let totalSqft = 0;
+
+    // Convert millimetre allowances from Advanced Settings to inches
+    const mmToInches = mm => mm / 25.4;
+    const lockNoFixedIn = mmToInches(advancedSettings.lockNoFixed);
+    const lockTopFixedIn = mmToInches(advancedSettings.lockTopFixed);
+    const lockBotFixedIn = mmToInches(advancedSettings.lockBotFixed);
+    const lockBothFixedIn = mmToInches(advancedSettings.lockBothFixed);
+
+    const clickTopVIn = mmToInches(advancedSettings.clickTopV);
+    const clickBotVIn = mmToInches(advancedSettings.clickBotV);
+    const click2sHIn = mmToInches(advancedSettings.click2sH);
+    const click4sHIn = mmToInches(advancedSettings.click4sH);
+
+    const midTopIn = mmToInches(advancedSettings.midTop);
+    const midBotIn = mmToInches(advancedSettings.midBot);
+
+    const outerCloseIn = mmToInches(advancedSettings.outerClose);
+    const frameWIn = mmToInches(advancedSettings.frameW);
+
+    const wheel2sIn = mmToInches(advancedSettings.wheel2s);
+    const wheel4sIn = mmToInches(advancedSettings.wheel4s);
+
+    // extra deductions + piece counts (all editable per category in Advanced Formula Allowances)
+    const A = advancedSettings;
+    const sideFrameDedIn = mmToInches(A.sideFrameDed);
+    const hookFrameDedIn = mmToInches(A.hookFrameDed);
+    const meetingStileDedIn = mmToInches(A.meetingStileDed);
+    const fixedFrameWIn = mmToInches(A.fixedFrameW);
+    const sideInnerTopIn = mmToInches(A.sideInnerTop);
+    const sideInnerBotIn = mmToInches(A.sideInnerBot);
+
+    calculatedProfileData = {
+      'top frame': [],'top frame + fixed': [], 'btm frame': [], 'side frame': [], 'lock frame': [],
+      'hook frame': [], 'wheel frame': [], 'fixed frame': [], 'fixed middle frame': [],
+      'side fixed close (inner)': [], 'side fixed close (outer)': [], 'fixed click': [], 'meeting stile': [], 'glass': []
+    };
+
+    calculatedAccessoriesData = {
+      topCap: 0, botCap: 0, wheel: 0, hookLock: 0, weatherstripFt: 0, wsRollFt: wsRollFt
+    };
+
+    items.forEach(item => {
+      const errorMsg = item.querySelector('.error-msg');
+      errorMsg.style.display = 'none';
+
+      let hInput = item.querySelector('.door-h');
+      let FH = parseFloat(hInput.dataset.inches) || parseToInches(hInput.value, currentUnit) || 0;
+
+      let wInput = item.querySelector('.door-w');
+      let FW = parseFloat(wInput.dataset.inches) || parseToInches(wInput.value, currentUnit) || 0;
+
+      let qty = parseInt(item.querySelector('.door-qty').value) || 0;
+
+      if (!qty || qty <= 0 || !FH || FH <= 0 || !FW || FW <= 0) return;
+
+      validItemFound = true;
+
+      let slide = parseInt(item.querySelector('.slide-type').value);
+
+      let topInput = item.querySelector('.top-fixed');
+      let TFH = parseFloat(topInput.dataset.inches) || parseToInches(topInput.value, currentUnit) || 0;
+
+      let botInput = item.querySelector('.bot-fixed');
+      let BFH = parseFloat(botInput.dataset.inches) || parseToInches(botInput.value, currentUnit) || 0;
+
+      if ((TFH + BFH) >= FH) {
+        errorMsg.style.display = 'block';
+        hasValidationError = true;
+        return;
+      }
+
+      let wFt = Math.ceil((FW / 12) * 2) / 2;
+      let hFt = Math.ceil((FH / 12) * 2) / 2;
+      let itemSqft = wFt * hFt;
+
+      totalSqft += (itemSqft * qty);
+
+      // FORMULA COMPUTATIONS
+      let hasTop = TFH > 0;
+      let hasBot = BFH > 0;
+
+      // Lock Frame, Hook Frame, and Meeting Stile conditional formula
+      let lockFrameLen = FH - lockNoFixedIn;
+      if (hasTop && hasBot) {
+        lockFrameLen = FH - (TFH + BFH + lockBothFixedIn);
+      } else if (hasTop) {
+        lockFrameLen = FH - (TFH + lockTopFixedIn);
+      } else if (hasBot) {
+        lockFrameLen = FH - (BFH + lockBotFixedIn);
+      }
+
+      // Wheel Frame formula
+      let wheelFrameLen = slide === 2 ? (FW - wheel2sIn) / 2 : (FW - wheel4sIn) / 4;
+
+      // Glass sizes (inches). FW is the OVERALL frame width. Defaults: fixed width 2-slide (FW-105mm)/2, 4-slide (FW-185mm)/4
+      const mmIn = mm => mm / 25.4;
+      const fixedGlassW = (FW - mmIn(slide === 2 ? A.glassFixedW2s : A.glassFixedW4s)) / slide;
+      // Door-leaf glass: height = lock frame length - 80mm ; width = door-leaf frame length - 5mm
+      // (the leaf's horizontal frame is the wheel frame, so wheelFrameLen is the actual leaf frame length)
+      const doorGlassW = wheelFrameLen - mmIn(A.glassDoorW);
+      const doorGlassH = lockFrameLen - mmIn(A.glassDoorH);
+      const topGlassH = TFH - mmIn(A.glassTopH);
+      const botGlassH = BFH - mmIn(A.glassBotH);
+
+      let panels = slide;
+      calculatedAccessoriesData.topCap += panels * A.qTopCap * qty;
+      calculatedAccessoriesData.botCap += panels * A.qBotCap * qty;
+      calculatedAccessoriesData.wheel += panels * A.qWheelAcc * qty;
+
+      if (slide === 2) calculatedAccessoriesData.hookLock += A.qHookLock2s * qty;
+      else if (slide === 4) calculatedAccessoriesData.hookLock += A.qHookLock4s * qty;
+
+      let totalLockFrameFt = (lockFrameLen / 12) * slide;
+      calculatedAccessoriesData.weatherstripFt += totalLockFrameFt * A.weatherstripPerLock * qty;
+
+      // push the same length `n` times
+      const rep = (arr, n, len) => { for (let r = 0; r < n; r++) arr.push(len); };
+
+      for (let i = 0; i < qty; i++) {
+        // A. Side Frame
+        rep(calculatedProfileData['side frame'], A.qSideFrame, FH - sideFrameDedIn);
+
+        // I, J, K. Top / Bottom Frames
+        let topBottomLen = FW - frameWIn;
+        if (hasTop) {
+          rep(calculatedProfileData['top frame + fixed'], A.qTopFrame, topBottomLen);
+        } else {
+          rep(calculatedProfileData['top frame'], A.qTopFrame, topBottomLen);
+        }
+        rep(calculatedProfileData['btm frame'], A.qBtmFrame, topBottomLen);
+
+        let leafCount = slide;
+        for (let j = 0; j < leafCount; j++) {
+          // B, C. Lock Frame & Hook Frame
+          rep(calculatedProfileData['lock frame'], A.qLockFrame, lockFrameLen);
+          rep(calculatedProfileData['hook frame'], A.qHookFrame, lockFrameLen - hookFrameDedIn);
+
+          // M. Wheel Frame
+          rep(calculatedProfileData['wheel frame'], A.qWheelFrame, wheelFrameLen);
+          for (let g = 0; g < A.qLeafGlass; g++) calculatedProfileData['glass'].push({ w: doorGlassW, h: doorGlassH });
+        }
+
+        // L. Meeting Stile
+        rep(calculatedProfileData['meeting stile'], slide === 4 ? A.qMeetingStile4s : A.qMeetingStile2s, lockFrameLen - meetingStileDedIn);
+
+        const fixedGlassCount = slide * A.qFixedGlass;
+        if (hasTop) {
+          for (let g = 0; g < fixedGlassCount; g++) calculatedProfileData['glass'].push({ w: fixedGlassW, h: topGlassH });
+        }
+        if (hasBot) {
+          for (let g = 0; g < fixedGlassCount; g++) calculatedProfileData['glass'].push({ w: fixedGlassW, h: botGlassH });
+        }
+
+        let fixedCount = (hasTop ? 1 : 0) + (hasBot ? 1 : 0);
+        if (fixedCount > 0) {
+          // H. Fixed Frame
+          rep(calculatedProfileData['fixed frame'], fixedCount * A.qFixedFrame, FW - fixedFrameWIn);
+
+          // E. Fixed Middle Frame
+          let midQty = slide === 2 ? A.qFixedMid2s : A.qFixedMid4s;
+          if (hasTop) rep(calculatedProfileData['fixed middle frame'], midQty, TFH - midTopIn);
+          if (hasBot) rep(calculatedProfileData['fixed middle frame'], midQty, BFH - midBotIn);
+
+          // F. Inner Fixed Side Close
+          if (hasTop) rep(calculatedProfileData['side fixed close (inner)'], A.qSideCloseInner, TFH - sideInnerTopIn);
+          if (hasBot) rep(calculatedProfileData['side fixed close (inner)'], A.qSideCloseInner, BFH - sideInnerBotIn);
+
+          // G. Outer Fixed Side Close
+          if (hasBot) rep(calculatedProfileData['side fixed close (outer)'], A.qSideCloseOuter, FW - outerCloseIn);
+
+          // D. Fixed Click
+          let clickQtyH = slide === 2 ? A.qClickV2s : A.qClickV4s;
+          let clickQtyW = slide === 2 ? A.qClickH2s : A.qClickH4s;
+          // Horizontal clip length: 2-slide = (FW - 95mm) / 2 ; 4-slide = (FW - 165mm) / 4 (defaults)
+          // (same value is used for top AND bottom fixed glass)
+          let clickHorizLen = slide === 2 ? (FW - click2sHIn) / 2 : (FW - click4sHIn) / 4;
+
+          if (hasTop) {
+            rep(calculatedProfileData['fixed click'], clickQtyH, TFH - clickTopVIn);
+            rep(calculatedProfileData['fixed click'], clickQtyW, clickHorizLen);
+          }
+          if (hasBot) {
+            rep(calculatedProfileData['fixed click'], clickQtyH, BFH - clickBotVIn);
+            rep(calculatedProfileData['fixed click'], clickQtyW, clickHorizLen);
+          }
+        }
+      }
+    });
+
+    if (hasValidationError) {
+      alert(i18n[currentLang].errFixed);
+      return;
+    }
+
+    if (!validItemFound) {
+      alert(i18n[currentLang].errEmpty);
+      return;
+    }
+
+    const tbody = document.getElementById('report-body');
+    tbody.innerHTML = '';
+
+    // Section 1: Profiles
+    tbody.innerHTML += `<tr class="section-divider"><td colspan="3">${i18n[currentLang].secProfiles}</td></tr>`;
+    for (let profile in calculatedProfileData) {
+      if (profile === 'glass') continue;
+      let itemsList = calculatedProfileData[profile];
+      if (itemsList.length > 0) {
+        let barLength = getProfileLength(profile);
+        let result = calculate1DStockBars(itemsList, kerf, barLength);
+        let rawCost = result.costingQty * getPrice(profile);
+        let roundedCost = Math.ceil(rawCost / 100) * 100;
+        totalGrandCost += roundedCost;
+
+        tbody.innerHTML += `
+          <tr class="clickable-row" onclick="openItemDetail('${profile}')">
+            <td>${profile} ➔</td>
+            <td class="text-right highlight-qty">${result.costingQty} bar</td>
+            <td class="text-right">${roundedCost > 0 ? roundedCost.toLocaleString() : '-'}</td>
+          </tr>
+        `;
+      }
+    }
+
+    // Section 2: Glass
+    tbody.innerHTML += `<tr class="section-divider"><td colspan="3">${i18n[currentLang].secGlass}</td></tr>`;
+    let glassList = calculatedProfileData['glass'];
+    if (glassList.length > 0) {
+      let sheetRes = calculateGlassSheets(glassList, glassW, glassH);
+      let rawCost = sheetRes.costingQty * getPrice('glass');
+      let roundedCost = Math.ceil(rawCost / 100) * 100;
+      totalGrandCost += roundedCost;
+
+      tbody.innerHTML += `
+        <tr class="clickable-row" onclick="openItemDetail('glass')">
+          <td>glass ➔</td>
+          <td class="text-right highlight-qty">${sheetRes.costingQty} sheet</td>
+          <td class="text-right">${roundedCost > 0 ? roundedCost.toLocaleString() : '-'}</td>
+        </tr>
+      `;
+    }
+
+    // Section 3: Accessories
+    tbody.innerHTML += `<tr class="section-divider"><td colspan="3">${i18n[currentLang].secAcc}</td></tr>`;
+    let rawWsRolls = calculatedAccessoriesData.weatherstripFt / calculatedAccessoriesData.wsRollFt;
+    let wsRolls = Math.ceil(rawWsRolls / 0.25) * 0.25;
+
+    let accItems = [
+      { name: 'top cap', qtyStr: `${calculatedAccessoriesData.topCap} pcs`, qtyVal: calculatedAccessoriesData.topCap },
+      { name: 'bot cap', qtyStr: `${calculatedAccessoriesData.botCap} pcs`, qtyVal: calculatedAccessoriesData.botCap },
+      { name: 'wheel', qtyStr: `${calculatedAccessoriesData.wheel} pcs`, qtyVal: calculatedAccessoriesData.wheel },
+      { name: 'hook lock', qtyStr: `${calculatedAccessoriesData.hookLock} pcs`, qtyVal: calculatedAccessoriesData.hookLock },
+      { name: 'weatherstrip', qtyStr: `${wsRolls} roll`, qtyVal: wsRolls }
+    ];
+
+    accItems.forEach(acc => {
+      let rawCost = acc.qtyVal * getPrice(acc.name);
+      let roundedCost = Math.ceil(rawCost / 100) * 100;
+      totalGrandCost += roundedCost;
+
+      tbody.innerHTML += `
+        <tr class="clickable-row" onclick="openItemDetail('${acc.name}')">
+          <td>${acc.name} ➔</td>
+          <td class="text-right highlight-qty">${acc.qtyStr}</td>
+          <td class="text-right">${roundedCost > 0 ? roundedCost.toLocaleString() : '-'}</td>
+        </tr>
+      `;
+    });
+
+    // Section 4: Labor & Miscellaneous
+    let miscPricePerSqft = parseFloat(document.getElementById('global-misc-price').value) || 0;
+    let miscCost = Math.ceil((totalSqft * miscPricePerSqft) / 100) * 100;
+    totalGrandCost += miscCost;
+
+    tbody.innerHTML += `<tr class="section-divider"><td colspan="3">${i18n[currentLang].secMisc}</td></tr>`;
+    tbody.innerHTML += `
+      <tr>
+        <td>${i18n[currentLang].totalArea} ➔</td>
+        <td class="text-right highlight-qty">${totalSqft.toFixed(2)} sqft</td>
+        <td class="text-right">${miscCost > 0 ? miscCost.toLocaleString() : '-'}</td>
+      </tr>
+    `;
+
+    let pricePerSqft = totalSqft > 0 ? (totalGrandCost / totalSqft) : 0;
+
+    tbody.innerHTML += `
+      <tr style="border-top: 2px solid var(--accent);">
+        <td colspan="2" class="text-right" id="lbl-grand-total" style="font-weight: bold; color: var(--accent); padding-top:16px;">
+          ${i18n[currentLang].grandTotal}
+        </td>
+        <td class="text-right highlight-qty" style="font-size:15px; padding-top:16px;">
+          ${totalGrandCost > 0 ? totalGrandCost.toLocaleString() : '0'} Ks
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-right" id="lbl-per-sqft" style="color: var(--sub); font-size:12px; padding-top:4px; padding-bottom:16px;">
+          ${i18n[currentLang].perSqft}
+        </td>
+        <td class="text-right highlight-qty" style="font-size:13px; color: var(--sub); padding-top:4px; padding-bottom:16px;">
+          ${pricePerSqft > 0 ? Math.ceil(pricePerSqft).toLocaleString() : '0'} Ks / sqft
+        </td>
+      </tr>
+    `;
+
+    updateOutputCategoryInfo();
+    document.getElementById('input-screen').classList.add('hidden');
+    document.getElementById('output-screen').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  // same feasibility test the optimizer uses (a piece may be rotated)
+  function glassPieceFits(p, sheetW, sheetH) {
+    const EPS = 1e-7, w = Number(p.w), h = Number(p.h);
+    if (!(w > 0) || !(h > 0) || !isFinite(w) || !isFinite(h)) return false;
+    return (w <= sheetW + EPS && h <= sheetH + EPS) || (h <= sheetW + EPS && w <= sheetH + EPS);
+  }
+
+  function layoutLetter(i) {
+    let n = i + 1, out = '';
+    while (n > 0) { const r = (n - 1) % 26; out = String.fromCharCode(65 + r) + out; n = Math.floor((n - 1) / 26); }
+    return out;
+  }
+
+  function finishDetailOpen(preserveView) {
+    document.getElementById('output-screen').classList.add('hidden');
+    document.getElementById('detail-screen').classList.remove('hidden');
+    if (preserveView) return;
+    const sw = document.getElementById('detail-swiper');
+    if (sw) sw.scrollLeft = 0;           // always start on the list page (instant, no stale diagram flash)
+    switchTab(0);
+    window.scrollTo(0, 0);
+  }
+
+  function openItemDetail(profileName, preserveView) {
+    currentDetailName = profileName;
+    document.getElementById('detail-item-title').innerText = profileName;
+
+    const pageList = document.getElementById('page-list');
+    const pageDiagram = document.getElementById('page-diagram');
+
+    let isAcc = ['top cap', 'bot cap', 'wheel', 'hook lock', 'weatherstrip'].includes(profileName);
+    if (isAcc) {
+      let detailText = '';
+      if (profileName === 'top cap') detailText = `${calculatedAccessoriesData.topCap} pcs`;
+      else if (profileName === 'bot cap') detailText = `${calculatedAccessoriesData.botCap} pcs`;
+      else if (profileName === 'wheel') detailText = `${calculatedAccessoriesData.wheel} pcs`;
+      else if (profileName === 'hook lock') detailText = `${calculatedAccessoriesData.hookLock} pcs`;
+      else if (profileName === 'weatherstrip') {
+        let rawWsRolls = calculatedAccessoriesData.weatherstripFt / calculatedAccessoriesData.wsRollFt;
+        let wsRolls = Math.ceil(rawWsRolls / 0.25) * 0.25;
+        detailText = `${wsRolls} roll(s) [Total: ${calculatedAccessoriesData.weatherstripFt.toFixed(1)} ft]`;
+      }
+
+      pageList.innerHTML = `
+        <div class="list-item-row">
+          <span>${profileName.toUpperCase()}</span>
+          <span style="color:var(--accent); font-weight:600;">${detailText}</span>
+        </div>
+      `;
+      pageDiagram.innerHTML = `
+        <div style="padding: 20px; text-align: center; color: var(--sub); font-size: 13px;">
+          No cutting diagram required for accessories.
+        </div>
+      `;
+
+      finishDetailOpen(preserveView);
+      return;
+    }
+
+    if (profileName === 'glass') {
+      const glassWInput = document.getElementById('global-glass-w');
+      let glassW = parseFloat(glassWInput.dataset.inches) || parseToInches(glassWInput.value, currentUnit);
+
+      const glassHInput = document.getElementById('global-glass-h');
+      let glassH = parseFloat(glassHInput.dataset.inches) || parseToInches(glassHInput.value, currentUnit);
+
+      const glassPieces = calculatedProfileData['glass'] || [];
+      const sheetValid = glassW > 0 && glassH > 0 && isFinite(glassW) && isFinite(glassH);
+
+      // silent: oversize warnings are shown inside the diagram instead of a pop-up on every redraw
+      const res = calculateGlassSheets(glassPieces, glassW, glassH, { silent: true });
+      const { sheetCount, layouts, costingQty } = res;
+
+      let listHTML = `<div style="margin-bottom:10px; font-size:12px; color:var(--sub);">Total Glass Panels: ${glassPieces.length} | Costing Qty: ${costingQty} Sheet(s)</div>`;
+      let counts = {};
+      let tooBig = {};
+      glassPieces.forEach(p => {
+        let formatted = `${displayLength(p.w)} x ${displayLength(p.h)}`;
+        counts[formatted] = (counts[formatted] || 0) + 1;
+        if (!sheetValid || !glassPieceFits(p, glassW, glassH)) tooBig[formatted] = true;
+      });
+
+      for (let sizeStr in counts) {
+        const flag = tooBig[sizeStr];
+        listHTML += `
+          <div class="list-item-row">
+            <span${flag ? ' style="color:var(--danger);"' : ''}>${flag ? '⚠ ' : ''}${sizeStr}</span>
+            <span style="color:var(--accent); font-weight:600;">${counts[sizeStr]} pcs</span>
+          </div>
+        `;
+      }
+      pageList.innerHTML = listHTML;
+
+      let diagramHTML = `<div style="margin-bottom:10px; font-size:12px; color:var(--sub);">Required Stocks: ${sheetCount} Sheet(s) (${displayLength(glassW)} x ${displayLength(glassH)})</div>`;
+
+      // Say clearly WHY there is nothing to draw instead of rendering an empty page
+      if (!glassPieces.length) {
+        diagramHTML += `<div class="notice-box">${tr('noGlass')}</div>`;
+      } else if (!sheetValid) {
+        diagramHTML += `<div class="warn-box">${tr('sheetInvalid')}</div>`;
+      } else {
+        if (res.oversized && res.oversized.length) {
+          const sizes = [...new Set(res.oversized.map(o => `${displayLength(o.w)} x ${displayLength(o.h)}`))];
+          diagramHTML += `<div class="warn-box">⚠ ${tr('piecesTooBig')} (${res.oversized.length}): ${sizes.join(', ')}</div>`;
+        }
+        if (!layouts.length) {
+          diagramHTML += `<div class="warn-box">${tr('noLayouts')}</div>`;
+        }
+      }
+
+      const sheetArea = glassW * glassH;
+
+      layouts.forEach((layoutItem, idx) => {
+        const layoutName = layoutLetter(idx);
+        diagramHTML += `
+  <div class="layout-header">
+    <span>${tr('repWord')} ${layoutName}</span>
+    <span style="color:var(--accent);">${layoutItem.repetition}x</span>
+  </div>
+  <div 
+    class="glass-sheet-box"
+    style="
+      aspect-ratio: ${glassW} / ${glassH};
+      width: min(100%, ${Math.min(1000, (glassW / glassH) * 420)}px);
+    "
+  >
+`;
+
+        layoutItem.sheet.pieces.forEach(p => {
+          let leftPct = (p.x / glassW) * 100;
+          let topPct = (p.y / glassH) * 100;
+          let widthPct = (p.placedW / glassW) * 100;
+          let heightPct = (p.placedH / glassH) * 100;
+          const label = `${displayLength(p.placedW)} x ${displayLength(p.placedH)}${p.rotated ? ' ↻' : ''}`;
+
+          diagramHTML += `
+            <div class="glass-piece-box" title="${label}" style="left:${leftPct}%; top:${topPct}%; width:${widthPct}%; height:${heightPct}%;">
+              ${label}
+            </div>
+          `;
+        });
+
+        diagramHTML += `</div>`;
+
+        // waste summary from the optimizer's own layout (used area + largest free rectangle)
+        const usedArea = layoutItem.sheet.pieces.reduce((a, p) => a + p.placedW * p.placedH, 0);
+        const usedPct = sheetArea > 0 ? (usedArea / sheetArea) * 100 : 0;
+        let stats = `${tr('usedWaste')} ${usedPct.toFixed(1)}% · ${tr('wasteWord')} ${(100 - usedPct).toFixed(1)}%`;
+        const frees = (layoutItem.sheet.freeSpaces || []).filter(f => f.w > 0 && f.h > 0);
+        if (frees.length) {
+          const big = frees.reduce((m, f) => (f.w * f.h > m.w * m.h ? f : m), frees[0]);
+          stats += ` · ${tr('offcutWord')} ${displayLength(big.w)} x ${displayLength(big.h)}`;
+        }
+        diagramHTML += `<div class="layout-stats">${stats}</div>`;
+      });
+
+      pageDiagram.innerHTML = diagramHTML;
+
+    } else {
+      const kerf = getKerfInches();
+      const cuts = calculatedProfileData[profileName];
+      const barLength = getProfileLength(profileName);
+      const { barCount, bins, costingQty } = calculate1DStockBars(cuts, kerf, barLength);
+
+      let listHTML = `<div style="margin-bottom:10px; font-size:12px; color:var(--sub);">Total Pieces: ${cuts.length} | Costing Qty: ${costingQty} Bar(s)</div>`;
+      let counts = {};
+      cuts.forEach(c => {
+        let formatted = displayLength(c);
+        counts[formatted] = (counts[formatted] || 0) + 1;
+      });
+
+      for (let len in counts) {
+        listHTML += `
+          <div class="list-item-row">
+            <span>${len}</span>
+            <span style="color:var(--accent); font-weight:600;">${counts[len]} pcs</span>
+          </div>
+        `;
+      }
+      pageList.innerHTML = listHTML;
+
+      let diagramHTML = `<div style="margin-bottom:10px; font-size:12px; color:var(--sub);">Stock Bars Pattern (${barCount} total):</div>`;
+
+      bins.forEach((bin, idx) => {
+        diagramHTML += `<div style="font-size:11px; margin-top:8px; margin-bottom:4px; color:var(--sub);">Bar #${idx + 1}</div>`;
+        diagramHTML += `<div class="bar-container">`;
+        
+        bin.cuts.forEach(c => {
+          let pct = (c / barLength) * 100;
+          let displayLen = displayLength(c);
+          diagramHTML += `<div class="bar-piece" style="width: ${pct}%;" title="${displayLen}">${displayLen}</div>`;
+        });
+
+        if (bin.oversized) {
+          diagramHTML += `<div class="bar-waste" style="width:100%;">OVERSIZE</div>`;
+        } else if (bin.rem > 0) {
+          let remPct = (bin.rem / barLength) * 100;
+          let remDisplay = displayLength(bin.rem);
+          diagramHTML += `<div class="bar-waste" style="width: ${remPct}%;">offcut ${remDisplay}</div>`;
+        }
+
+        diagramHTML += `</div>`;
+      });
+
+      pageDiagram.innerHTML = diagramHTML;
+    }
+
+    finishDetailOpen(preserveView);
+  }
+
+  // Scroll the detail pager to a page. If the screen was just un-hidden its width can still be 0,
+  // so retry on the next frames instead of silently staying on the wrong page.
+  function scrollDetailTo(container, idx, attempt) {
+    const width = container.clientWidth;
+    if (!width) {
+      if ((attempt || 0) < 10) requestAnimationFrame(() => scrollDetailTo(container, idx, (attempt || 0) + 1));
+      return;
+    }
+    try { container.scrollTo({ left: idx * width, behavior: 'smooth' }); }
+    catch (e) { container.scrollLeft = idx * width; }
+  }
+
+  function switchTab(idx) {
+    const container = document.getElementById('detail-swiper');
+    scrollDetailTo(container, idx, 0);
+
+    const btnText = document.getElementById('tab-btn-text');
+    const btnVisual = document.getElementById('tab-btn-visual');
+
+    if (idx === 0) {
+      btnText.classList.add('active');
+      btnVisual.classList.remove('active');
+    } else {
+      btnVisual.classList.add('active');
+      btnText.classList.remove('active');
+    }
+  }
+
+  function handleScroll() {
+    const container = document.getElementById('detail-swiper');
+    const idx = Math.round(container.scrollLeft / container.clientWidth);
+    const btnText = document.getElementById('tab-btn-text');
+    const btnVisual = document.getElementById('tab-btn-visual');
+
+    if (idx === 0) {
+      btnText.classList.add('active');
+      btnVisual.classList.remove('active');
+    } else {
+      btnVisual.classList.add('active');
+      btnText.classList.remove('active');
+    }
+  }
+
+  function copyOpticutterFormat() {
+    let rows = document.querySelectorAll('#report-body tr');
+    let text = "Item\tQty_Needed\n";
+    rows.forEach(row => {
+      if (row.classList.contains('section-divider')) return;
+      if (row.id === 'lbl-grand-total' || row.querySelector('#lbl-grand-total')) return;
+      if (row.querySelector('#lbl-per-sqft')) return;
+      
+      let cols = row.querySelectorAll('td');
+      if (cols.length >= 2) {
+        text += `${cols[0].innerText.replace(' ➔', '')}\t${cols[1].innerText}\n`;
+      }
+    });
+    navigator.clipboard.writeText(text);
+    alert('Copied to clipboard!');
+  }
+
+  // Initialize Application State
+  initThemeGrid();
+  applyTheme(getSavedTheme());
+
+  initPricingInputs();
+
+  selectedCategoryId = getSavedCategory();
+  initCategorySelect();
+  renderAdvancedForm();
+  loadAdvancedSettingsFromLocal();
+  applyWorkingToUI(selectedCategoryId);      // session-typed values for the selected category
+  categoryUiReady = true;
+
+  toggleLanguage();
+  addItem();
+  initUnitSystem();                          // selector = currentUnit, defaults/restored text -> stored inches
+  refreshAdminDependentUI();
+
+  loadPricingFromCloud();
+</script>
+
+</body>
+</html>
